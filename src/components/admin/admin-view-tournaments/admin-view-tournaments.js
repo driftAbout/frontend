@@ -21,7 +21,7 @@ export default class AdminViewTournament extends React.Component{
         <TournamentForm tournament={this.state.tournament}
           selectTournament={this.props.selectTournament}
           onComplete={this.state.tournament.name 
-            ? this.props.submitHandlers.tournamentUpdateRequest
+            ? this.props.submitHandlers.adminTournamentUpdateRequest
             : this.props.submitHandlers.adminTournamentCreateRequest
           }/>
       </section>
