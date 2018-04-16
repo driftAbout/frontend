@@ -22,7 +22,7 @@ export default class AdminViewTournament extends React.Component{
           selectTournament={this.props.selectTournament}
           onComplete={this.state.tournament.name 
             ? this.props.submitHandlers.tournamentUpdateRequest
-            : this.props.submitHandlers.tournamentCreateRequest
+            : this.props.submitHandlers.adminTournamentCreateRequest
           }/>
       </section>
     );

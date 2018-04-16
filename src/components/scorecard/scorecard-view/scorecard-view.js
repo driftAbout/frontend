@@ -1,6 +1,7 @@
 import './_scorecard-view.scss';
 import React from 'react';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
 import {TournamentSelect, DivisionSelect, GameSelect} from '../../select-box';
 import {gameUpdateRequest, gameUpdateScoreRequest} from '../../../actions/game-actions';
 import {tournamentGetRequest} from '../../../actions/tournament-actions';
@@ -51,6 +52,7 @@ class ScoreCardView extends React.Component {
   }
 
   render() {
+    if (!localStorage.token) return <Redirect to='/' />;
     return (
       <section className="scorecard-view-container">
         <article className="scorecard-view-selections-wrap">

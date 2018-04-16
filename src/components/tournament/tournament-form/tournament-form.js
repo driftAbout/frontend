@@ -22,8 +22,8 @@ export default class TournamentForm extends React.Component{
     this.setState({
       _id: nextProps.tournament._id,
       name: nextProps.tournament.name,
-      dateStart: nextProps.tournament.dateStart || '',
-      dateEnd: nextProps.tournament.dateEnd || '',
+      dateStart: nextProps.tournament.dateStart.replace(/T.*$/, '') || '',
+      dateEnd: nextProps.tournament.dateEnd.replace(/T.*$/, '') || '',
       edit: false,
     });
   }

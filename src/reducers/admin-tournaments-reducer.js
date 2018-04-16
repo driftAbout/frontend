@@ -11,7 +11,7 @@ export default (state=[], action) => {
 
   //takeAction['DIVISION_DELETE'] = () => [];
 
-  //takeAction['TOURNAMENT_SET'] = tournament => [...state, tournament];
+  //takeAction['TOURNAMENTS_SET'] = tournament => [...state, tournament];
 
   takeAction['ADMIN_TOURNAMENTS_SET'] = adminTournaments => [...state, ...adminTournaments];
 

@@ -5,7 +5,7 @@ import AdminViewTournament from '../admin-view-tournaments/admin-view-tournament
 import {TournamentSelect} from '../../select-box';
 import {connect} from 'react-redux';
 import {teamsGetByTournamentRequest} from '../../../actions/team-actions';
-import {adminTournamentsGetRequest} from '../../../actions/admin-tournaments-actions';
+import {adminTournamentsGetRequest, adminTournamentCreateRequest} from '../../../actions/admin-tournaments-actions';
 import {tournamentCreateRequest, tournamentUpdateRequest,tournamentGetRequest} from '../../../actions/tournament-actions';
 import {divisionCreateRequest, divisionUpdateRequest, divisionDeleteRequest, divisionPopulateRequest}  from '../../../actions/division-actions';
 
@@ -177,7 +177,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   tournamentFormHandlers: {
-    tournamentCreateRequest: tournament => dispatch(tournamentCreateRequest(tournament)),
+    adminTournamentCreateRequest: tournament => dispatch(adminTournamentCreateRequest(tournament)),
     tournamentUpdateRequest: tournament => dispatch(tournamentUpdateRequest(tournament)),
   },
   divisionFormHandlers: {
