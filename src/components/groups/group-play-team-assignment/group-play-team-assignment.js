@@ -56,7 +56,7 @@ export default class GroupTeamAssignment extends React.Component{
       let groupSlots =  Object.keys(groupTeams).reduce((acc, cur) => {
         let letter = cur[cur.length - 1];
         groupTeams[cur].forEach((team, i ) => { 
-          acc[`${letter}${i + 1}`] = team;
+          acc[`${letter}${i + 1}`] = team ? team : '';
         });
         return acc;
       }, {});
