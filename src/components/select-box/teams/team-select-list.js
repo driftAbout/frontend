@@ -9,7 +9,7 @@ export default class TeamSelect extends React.Component{
       teams: this.props.teams,
       isVisible: false,
       teamName: '',
-      team: '',
+      team: this.props.team || '',
     };
     this.toggleVisible = this.toggleVisible.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -19,7 +19,7 @@ export default class TeamSelect extends React.Component{
 
   componentWillReceiveProps(nextProps){
     if (this.props.teamName !== nextProps.teamName)
-      this.setState({teamName: nextProps.teamName, team: nextProps.team});
+      this.setState({teamName: nextProps.teamName});
   }
 
   toggleVisible(){

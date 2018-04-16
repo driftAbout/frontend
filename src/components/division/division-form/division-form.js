@@ -59,7 +59,7 @@ export default class DivisionForm extends  React.Component{
   handleDelete(e){
     e.preventDefault();
     if(!this.state._id) {
-      this.props.removeDivision();
+      //this.props.removeDivision();
       this.setState({agegroup: '', classification: '', name: '', _id: ''});
       return;
     }
