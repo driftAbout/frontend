@@ -5,6 +5,7 @@ import AdminViewTournament from '../admin-view-tournaments/admin-view-tournament
 import {TournamentSelect} from '../../select-box';
 import {connect} from 'react-redux';
 import {teamsGetByTournamentRequest} from '../../../actions/team-actions';
+import {adminTournamentsGetRequest} from '../../../actions/admin-tournaments-actions';
 import {tournamentCreateRequest, tournamentUpdateRequest,tournamentGetRequest} from '../../../actions/tournament-actions';
 import {divisionCreateRequest, divisionUpdateRequest, divisionDeleteRequest, divisionPopulateRequest}  from '../../../actions/division-actions';
 
@@ -16,18 +17,75 @@ class AdminView extends React.Component{
       tournament: '',
       divisions: [],
       isCollapsed: true,
-     // games: this.props.games || [],
     };
+
+
+    // this.divisionFormHandlers = {
+    //   divisionCreateRequest: this.createDivision,
+    //   divisionUpdateRequest: this.deleteDivision,
+    //   divisionDeleteRequest: this.updateDivision,
+    // };
+
     this.selectTournament =  this.selectTournament.bind(this);
+    this.createDivision = this.createDivision.bind(this);
+    this.deleteDivision = this.deleteDivision.bind(this);
+    this.updateDivision = this.updateDivision.bind(this);
+    this.divisionFormHandlers = this.divisionFormHandlers.bind(this);
+    
   }
 
-  componentWillReceiveProps(nextProps){
-    // if(this.state.tournament)
-    //   this.setState({
-    //     //divisions: nextProps.divisions[this.state.tournament._id] || [], 
-    //     //games: this.props.games || [],
-    //     //teams: nextProps.teams[this.state.tournament._id] || '',
+  //componentWillReceiveProps(nextProps){
+    //if(nextProps.tournaments.length) return;
+    // this.refreshTournamentData();
+    // this.props.tournamentGetRequest(this.state.tournament._id)
+    //   .then(action => {
+    //     let tournament = action.payload;
+    //     this.setState({
+    //       tournament: tournament,
+    //       divisions: tournament.divisions,
+    //     });
     //   });
+    // this.props.adminTournamentsGetRequest()
+    //   .then(action => {
+    //     let tournament = action.payload.filter(tourn => tourn._id === this.state.tournament._id)[0];
+    //     this.setState({
+    //       divisions: tournament.divisions || [], 
+    //     });
+    //   });
+  //}
+
+  divisionFormHandlers() {
+    return {
+      divisionCreateRequest: this.createDivision,
+      divisionUpdateRequest: this.deleteDivision,
+      divisionDeleteRequest: this.updateDivision,
+    };
+  }
+
+  createDivision(division){
+    return this.props.divisionCreateRequest(division)
+      .then(() => this.refreshTournamentData()); 
+  }
+
+  deleteDivision(division){
+    return this.props.divisionDeleteRequest(division)
+      .then(() => this.refreshTournamentData());  
+  }
+
+  updateDivision(division){
+    return this.props.divisionDeleteRequest(division)
+      .then(() => this.refreshTournamentData());  
+  }
+
+  refreshTournamentData(){
+    return  this.props.tournamentGetRequest(this.state.tournament._id)
+      .then(action => {
+        let tournament = action.payload;
+        this.setState({
+          tournament: tournament,
+          divisions: tournament.divisions,
+        });
+      });
   }
 
   selectTournament(tournament){
@@ -97,7 +155,9 @@ class AdminView extends React.Component{
         {this.state.tournament ?
           <AdminViewDivisions divisions={this.state.divisions}
             tournament={this.state.tournament}
-            submitHandlers={this.props.divisionFormHandlers}
+            // submitHandlers={this.props.divisionFormHandlers}
+            submitHandlers={this.divisionFormHandlers()}
+            //refresh={this.refreshTournamentData}
             teamAssign={this.props.teamAssign}
             teams={this.state.teams}
             //games={this.props.games}
@@ -125,9 +185,15 @@ const mapDispatchToProps = dispatch => ({
     divisionUpdateRequest: division => dispatch(divisionUpdateRequest(division)),
     divisionDeleteRequest: division => dispatch(divisionDeleteRequest(division)),
   },
+
+  divisionCreateRequest: division => dispatch(divisionCreateRequest(division)),
+  divisionUpdateRequest: division => dispatch(divisionUpdateRequest(division)),
+  divisionDeleteRequest: division => dispatch(divisionDeleteRequest(division)),
+
   teamAssign: (teamIds, divisionId) => dispatch(divisionPopulateRequest(teamIds, divisionId)),
   teamsGetByTournament: tournamentId => dispatch(teamsGetByTournamentRequest(tournamentId)),
   tournamentGetRequest: id => dispatch(tournamentGetRequest(id)),
+  adminTournamentsGetRequest: () => dispatch(adminTournamentsGetRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminView);

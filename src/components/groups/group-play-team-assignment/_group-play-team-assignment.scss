@@ -8,6 +8,50 @@
   }
 }
 
+.group-team-assignment-container.edit {
+  .team-list-wrap {
+    border-left: none;
+    border-right: none;
+    border-color: #fff;
+  }
+  .team-value{
+    background-color: #fff;
+  }
+}
+
+.group-team-assignment-container {
+  .team-list-wrap {
+    background-color: #ddd;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+    border-left: .75em solid #eee;
+    border-right: .75em solid #eee;
+    border-color: #aaa;
+  }
+
+  .team-value{
+    background-color: #eee;
+  }
+
+  button {
+    cursor: pointer;
+    font-size: 1em;
+    padding: .25em .75em;
+    border-radius: .25em;
+    margin-left: .5em;
+    outline: none;
+  }
+
+
+  button[name="edit"] {
+    background-color: transparent;
+  }
+
+  button[name="cancel"] {
+    background-color: #eee;
+  }
+}
+
 .group-team-assignment-container.collapsed {
   max-height: 3em;
   overflow: hidden;

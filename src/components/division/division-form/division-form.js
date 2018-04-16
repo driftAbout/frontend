@@ -19,8 +19,12 @@ export default class DivisionForm extends  React.Component{
     this.handleInvokeEdit = this.handleInvokeEdit.bind(this);
   }
 
+  componentDidMount(){
+    if(!Object.keys(this.props.division).length) return this.setState({edit: true});
+  }
+
   componentWillReceiveProps(nextProps){
-    if(!nextProps.division) return;
+    if(!nextProps.division) return this.setState({edit: true});
     this.setState({
       agegroup: nextProps.division.agegroup,
       classification: nextProps.division.classification,
@@ -39,6 +43,7 @@ export default class DivisionForm extends  React.Component{
   }
 
   handleCancel(){
+    if (!this.state._id) return this.props.removeDivision();
     this.setState({
       edit: !this.state.edit,
       name: this.props.division.name || '',
@@ -65,9 +70,11 @@ export default class DivisionForm extends  React.Component{
     e.preventDefault();
     if (!this.state.name || !this.state.classification || !this.state.agegroup ) return;
     let division = {...this.state};
+    delete division.edit;
     if (division._id === '') delete division._id;
     if (!division.tournament) division.tournament = this.props.tournament._id;
-    this.props.onComplete(division);
+    this.props.onComplete(division)
+      .then(() => this.setState({edit: false}));
   }
 
   render(){

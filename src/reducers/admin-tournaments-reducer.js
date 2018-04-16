@@ -7,6 +7,10 @@ export default (state=[], action) => {
 
   takeAction['RESET_STATE'] = () => [];
 
+  //takeAction['DIVISION_SET'] = () => [];
+
+  //takeAction['DIVISION_DELETE'] = () => [];
+
   //takeAction['TOURNAMENT_SET'] = tournament => [...state, tournament];
 
   takeAction['ADMIN_TOURNAMENTS_SET'] = adminTournaments => [...state, ...adminTournaments];

@@ -33,9 +33,10 @@ section {
 }
 
 .admin-view-container {
-  width: 90%;
+  width: 94%;
   margin: 0 auto;
   border: 1px solid #fff;
+  margin-top: 2em;
 
   .admin-view-division-container, .admin-tournament-view-container {
     padding: 1.25em;
@@ -50,7 +51,7 @@ section {
 
   h2 {
     font-size: 1.5em;
-    margin: .5em;
+    margin-bottom: .5em;
     color: #eee;
   }
 
@@ -200,6 +201,7 @@ section {
     display: block;
     margin: .5em 0;
     font-size: 1.25em;
+    font-weight: normal;
     text-indent: .25em;
     width: 100%;
     box-sizing: border-box;
@@ -237,10 +239,12 @@ section {
   input {
     display: block;
     margin: .5em 0;
-    font-size: 1.25em;
+    font-size: 1.5em;
     text-indent: .25em;
     width: 100%;
     box-sizing: border-box;
+    border-color: transparent;
+    border-radius: .1em;
   }
   button {
     cursor: pointer;
