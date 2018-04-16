@@ -5,8 +5,8 @@ import AdminViewTournament from '../admin-view-tournaments/admin-view-tournament
 import {TournamentSelect} from '../../select-box';
 import {connect} from 'react-redux';
 import {teamsGetByTournamentRequest} from '../../../actions/team-actions';
-import {adminTournamentsGetRequest} from '../../../actions/admin-tournaments-actions';
-import {tournamentCreateRequest, tournamentUpdateRequest,tournamentGetRequest} from '../../../actions/tournament-actions';
+import {adminTournamentsGetRequest, adminTournamentCreateRequest, adminTournamentUpdateRequest, adminTournamentDeleteRequest} from '../../../actions/admin-tournaments-actions';
+import {tournamentGetRequest} from '../../../actions/tournament-actions';
 import {divisionCreateRequest, divisionUpdateRequest, divisionDeleteRequest, divisionPopulateRequest}  from '../../../actions/division-actions';
 
 class AdminView extends React.Component{
@@ -19,7 +19,6 @@ class AdminView extends React.Component{
       isCollapsed: true,
     };
 
-
     // this.divisionFormHandlers = {
     //   divisionCreateRequest: this.createDivision,
     //   divisionUpdateRequest: this.deleteDivision,
@@ -31,27 +30,27 @@ class AdminView extends React.Component{
     this.deleteDivision = this.deleteDivision.bind(this);
     this.updateDivision = this.updateDivision.bind(this);
     this.divisionFormHandlers = this.divisionFormHandlers.bind(this);
-    
+    this.collapseTournamentForm = this.collapseTournamentForm.bind(this);
   }
 
   //componentWillReceiveProps(nextProps){
-    //if(nextProps.tournaments.length) return;
-    // this.refreshTournamentData();
-    // this.props.tournamentGetRequest(this.state.tournament._id)
-    //   .then(action => {
-    //     let tournament = action.payload;
-    //     this.setState({
-    //       tournament: tournament,
-    //       divisions: tournament.divisions,
-    //     });
-    //   });
-    // this.props.adminTournamentsGetRequest()
-    //   .then(action => {
-    //     let tournament = action.payload.filter(tourn => tourn._id === this.state.tournament._id)[0];
-    //     this.setState({
-    //       divisions: tournament.divisions || [], 
-    //     });
-    //   });
+  //if(nextProps.tournaments.length) return;
+  // this.refreshTournamentData();
+  // this.props.tournamentGetRequest(this.state.tournament._id)
+  //   .then(action => {
+  //     let tournament = action.payload;
+  //     this.setState({
+  //       tournament: tournament,
+  //       divisions: tournament.divisions,
+  //     });
+  //   });
+  // this.props.adminTournamentsGetRequest()
+  //   .then(action => {
+  //     let tournament = action.payload.filter(tourn => tourn._id === this.state.tournament._id)[0];
+  //     this.setState({
+  //       divisions: tournament.divisions || [], 
+  //     });
+  //   });
   //}
 
   divisionFormHandlers() {
@@ -98,7 +97,7 @@ class AdminView extends React.Component{
             .then (() => fullTournament);
         })
         .then(tournament => {
-          this.setState({
+          return this.setState({
             tournament: tournament, 
             teams: this.props.teams[tournament._id], 
             divisions: tournament.divisions, 
@@ -114,6 +113,10 @@ class AdminView extends React.Component{
       isCollapsed: false,
       //games: this.props.games || [],
     });
+  }
+
+  collapseTournamentForm(){
+    this.setState({isCollapsed: true});
   }
 
   // selectTournament(tournament){
@@ -148,8 +151,9 @@ class AdminView extends React.Component{
           lastOption={true}/>
 
         <AdminViewTournament tournament={this.state.tournament}
-          submitHandlers={this.props.tournamentFormHandlers}
+          formHandlers={this.props.tournamentFormHandlers}
           selectTournament={this.selectTournament}
+          collapseTournament={this.collapseTournamentForm}
           isCollapsed={this.state.isCollapsed}/>
 
         {this.state.tournament ?
@@ -177,14 +181,15 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   tournamentFormHandlers: {
-    tournamentCreateRequest: tournament => dispatch(tournamentCreateRequest(tournament)),
-    tournamentUpdateRequest: tournament => dispatch(tournamentUpdateRequest(tournament)),
+    adminTournamentCreateRequest: tournament => dispatch(adminTournamentCreateRequest(tournament)),
+    adminTournamentUpdateRequest: tournament => dispatch(adminTournamentUpdateRequest(tournament)),
+    adminTournamentDeleteRequest: tournament_id => dispatch(adminTournamentDeleteRequest(tournament_id)),
   },
-  divisionFormHandlers: {
-    divisionCreateRequest: division => dispatch(divisionCreateRequest(division)),
-    divisionUpdateRequest: division => dispatch(divisionUpdateRequest(division)),
-    divisionDeleteRequest: division => dispatch(divisionDeleteRequest(division)),
-  },
+  // divisionFormHandlers: {
+  //   divisionCreateRequest: division => dispatch(divisionCreateRequest(division)),
+  //   divisionUpdateRequest: division => dispatch(divisionUpdateRequest(division)),
+  //   divisionDeleteRequest: division => dispatch(divisionDeleteRequest(division)),
+  // },
 
   divisionCreateRequest: division => dispatch(divisionCreateRequest(division)),
   divisionUpdateRequest: division => dispatch(divisionUpdateRequest(division)),

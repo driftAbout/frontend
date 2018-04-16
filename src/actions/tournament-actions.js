@@ -20,9 +20,9 @@ const tournamentSet = tournament => ({type: 'TOURNAMENT_SET', payload: tournamen
 
 const tournamentSetAll = tournaments => ({type: 'TOURNAMENT_SET_ALL', payload: tournaments});
 
-const tournamentDelete = tournamentId => ({type: 'TOURNAMENT_DELETE', payload: tournamentId});
+// const tournamentDelete = tournamentId => ({type: 'TOURNAMENT_DELETE', payload: tournamentId});
 
-const tournamentUpdate = tournament => ({type: 'TOURNAMENT_UPDATE', payload: tournament});
+// const tournamentUpdate = tournament => ({type: 'TOURNAMENT_UPDATE', payload: tournament});
 
 const tournamentGetRequest = tournamentId => dispatch => {
   return superagent.get(`${__API_URL__}/tournament/${tournamentId}`)
@@ -32,37 +32,36 @@ const tournamentGetRequest = tournamentId => dispatch => {
 const tournamentAllGetRequest = () => dispatch => {
   return superagent.get(`${__API_URL__}/tournament`)
     .then(res =>  dispatch(tournamentSetAll(res.body)));
-    //.then(res => ({payload: res.body}) );
 };
 
-const tournamentCreateRequest = tournament => dispatch => {
-  let token = localStorage.token;
-  return superagent.post(`${__API_URL__}/tournament/create`)
-    .set({'Authorization': `Bearer ${token}`})
-    .send(tournament)
-    .then(res =>  dispatch(tournamentSet(res.body)));
-};
+// const tournamentCreateRequest = tournament => dispatch => {
+//   let token = localStorage.token;
+//   return superagent.post(`${__API_URL__}/tournament/create`)
+//     .set({'Authorization': `Bearer ${token}`})
+//     .send(tournament)
+//     .then(res =>  dispatch(tournamentSet(res.body)));
+// };
 
-const tournamentDeleteRequest = tournamentId => dispatch => {
-  let token = localStorage.token;
-  return superagent.delete(`${__API_URL__}/tournament/${tournamentId}`)
-    .set({'Authorization': `Bearer ${token}`})
-    .then(() =>  dispatch(tournamentDelete(tournamentId)));
-};
+// const tournamentDeleteRequest = tournamentId => dispatch => {
+//   let token = localStorage.token;
+//   return superagent.delete(`${__API_URL__}/tournament/${tournamentId}`)
+//     .set({'Authorization': `Bearer ${token}`})
+//     .then(() =>  dispatch(tournamentDelete(tournamentId)));
+// };
 
-const tournamentUpdateRequest = tournament => dispatch => {
-  let token = localStorage.token;
-  return superagent.put(`${__API_URL__}/tournament/${tournament._id}`)
-    .set({'Authorization': `Bearer ${token}`})
-    .send(tournament)
-    .then(() =>  dispatch(tournamentUpdate(tournament)));
-};
+// const tournamentUpdateRequest = tournament => dispatch => {
+//   let token = localStorage.token;
+//   return superagent.put(`${__API_URL__}/tournament/${tournament._id}`)
+//     .set({'Authorization': `Bearer ${token}`})
+//     .send(tournament)
+//     .then(() =>  dispatch(tournamentUpdate(tournament)));
+// };
 
 export {
   tournamentGetRequest,
   tournamentAllGetRequest,
-  tournamentCreateRequest,
-  tournamentUpdateRequest,
+  //tournamentCreateRequest,
+  //tournamentUpdateRequest,
   setStateFromStorage,
-  tournamentDeleteRequest,
+  //tournamentDeleteRequest,
 };
