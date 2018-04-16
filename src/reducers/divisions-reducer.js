@@ -7,12 +7,12 @@ export default (state={}, action) => {
 
   takeAction['RESET_STATE'] = () => ({});
 
-  takeAction['DIVISION_SET'] = division => {
-    let tempState = {...state};
-    if (!tempState[division.tournament]) tempState[division.tournament] = [];
-    tempState[division.tournament].push(division);
-    return tempState;
-  };
+  // takeAction['DIVISION_SET'] = division => {
+  //   let tempState = {...state};
+  //   if (!tempState[division.tournament]) tempState[division.tournament] = [];
+  //   tempState[division.tournament].push(division);
+  //   return tempState;
+  // };
 
   takeAction['DIVISION_SET_ALL'] = divisions => {
     let tempState = {...state}; 
@@ -32,12 +32,12 @@ export default (state={}, action) => {
     return tempState;
   };
 
-  takeAction['DIVISION_DELETE'] = divisionDelete => {
-    let tempState = {...state};
-    tempState[divisionDelete.tournament] = tempState[divisionDelete.tournament].filter(division => 
-      division._id !== divisionDelete._id);
-    return tempState;
-  };
+  // takeAction['DIVISION_DELETE'] = divisionDelete => {
+  //   let tempState = {...state};
+  //   tempState[divisionDelete.tournament] = tempState[divisionDelete.tournament].filter(division => 
+  //     division._id !== divisionDelete._id);
+  //   return tempState;
+  // };
 
   // takeAction['ADMIN_TOURNAMENTS_SET'] = tournaments => {
   //   let tempState = {...state};

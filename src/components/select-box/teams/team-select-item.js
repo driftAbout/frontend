@@ -14,7 +14,7 @@ export default class TeamItem extends React.Component{
     return (
       <li className="team-item" 
         onClick={this.handleClick}>
-        {this.props.team.name}
+        {this.props.team.name || '- - none - -'}
       </li>
     );
   }

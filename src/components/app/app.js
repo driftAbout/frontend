@@ -36,7 +36,7 @@ export default class App extends React.Component{
       //store.dispatch(gameAllGetRequest()),
     ])
       .then(() => {
-        if(store.getState().token) return store.dispatch(adminTournamentsGetRequest());
+        if(store.getState().token && !store.getState().adminTournaments.length) return store.dispatch(adminTournamentsGetRequest());
       })
       .then(() => {
         let state = store.getState();

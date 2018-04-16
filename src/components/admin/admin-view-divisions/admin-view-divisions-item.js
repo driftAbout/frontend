@@ -12,6 +12,10 @@ export default class AdminDivisionItem extends React.Component{
     this.toggleView = this.toggleView.bind(this);
   }
 
+  componentWillMount(){
+    if (!Object.keys(this.props.division).length ) return this.setState({isCollapsed: false});
+  }
+
   toggleView(){
     this.setState({isCollapsed: !this.state.isCollapsed});
   }
@@ -33,10 +37,12 @@ export default class AdminDivisionItem extends React.Component{
             onDelete={this.props.submitHandlers.divisionDeleteRequest}
             removeDivision={this.props.removeDivision}/>
 
-          <GroupTeamAssignment 
-            teamAssign={this.props.teamAssign}
-            division={this.props.division}
-            teams={this.props.teams}/>
+          {this.props.division._id ?
+            <GroupTeamAssignment 
+              teamAssign={this.props.teamAssign}
+              division={this.props.division}
+              teams={this.props.teams}/>
+            : undefined}
         </div>
       </li> 
     );

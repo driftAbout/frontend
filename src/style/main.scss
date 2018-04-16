@@ -17,15 +17,16 @@ body {
 }
 
 .landing-container {
-  width: 95%;
+  width: 92%;
   margin: 2em auto;
   padding: 2em 0;
   background: rgba(240,240,240, .3);
+  border: 1px solid #ccc;
   border-radius: .25em;
   position: relative;
 
 input {
-  width: 80%;
+  width: 86%;
   margin: .75em auto;
   display: block;
 }
