@@ -20,10 +20,12 @@ export default class AdminViewTournament extends React.Component{
         <h3>Tournament</h3>
         <TournamentForm tournament={this.state.tournament}
           selectTournament={this.props.selectTournament}
+          collapseTournament={this.props.collapseTournament}
           onComplete={this.state.tournament.name 
-            ? this.props.submitHandlers.adminTournamentUpdateRequest
-            : this.props.submitHandlers.adminTournamentCreateRequest
-          }/>
+            ? this.props.formHandlers.adminTournamentUpdateRequest
+            : this.props.formHandlers.adminTournamentCreateRequest
+          }
+          deleteTournament={this.props.formHandlers.adminTournamentDeleteRequest}/>
       </section>
     );
   }
