@@ -35,7 +35,8 @@ export default class AdminDivisionItem extends React.Component{
               : this.props.submitHandlers.divisionCreateRequest
             } 
             onDelete={this.props.submitHandlers.divisionDeleteRequest}
-            removeDivision={this.props.removeDivision}/>
+            removeDivision={this.props.removeDivision}
+            isCollapsed={this.state.isCollapsed}/>
 
           {this.props.division._id ?
             <GroupTeamAssignment 

@@ -10,7 +10,6 @@ export default class AdminViewDivisions extends React.Component{
     this.state = {
       divisions: this.props.divisions || [],
       teams: this.props.teams || '',
-     // games: this.props.games || [],
     };
     this.addDivision = this.addDivision.bind(this);
     this.removeDivision = this.removeDivision.bind(this);

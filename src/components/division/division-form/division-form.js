@@ -30,6 +30,7 @@ export default class DivisionForm extends  React.Component{
       classification: nextProps.division.classification,
       name: nextProps.division.name,
       _id: nextProps.division._id,
+      edit: nextProps.isCollapsed ? false : this.state.edit,
     });
   }
 
