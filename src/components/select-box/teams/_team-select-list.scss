@@ -1,0 +1,47 @@
+
+.team-value {
+  cursor: pointer;
+  font-size: 1.25em;
+  border-radius: .2em;
+  background-color: #fff;
+}
+
+.team-list-wrap{
+  position: relative;
+  width: 90%;
+  box-sizing: border-box;
+  line-height: 2.5em;
+  text-indent: .5em;
+  background-color: #eee;
+  border-radius:  .25em;
+  margin: .5em auto;
+}
+
+.team-list{
+  z-index: 9;
+  position: absolute;
+  width: 100%;
+  cursor: pointer;
+  max-height: 0;
+  overflow: hidden;
+  transition: 350ms;
+}
+
+.team-list.visible{
+  max-height: 30vh;
+  overflow: auto;
+  transition: 350ms;
+}
+
+.team-item {
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.team-item:nth-of-type(odd) {
+  background-color: #eee;
+}
+
+.team-select-placeholder {
+  color: #ccc;
+}

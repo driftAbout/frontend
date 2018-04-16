@@ -23,13 +23,18 @@
     },
     "verbose": true,
     "collectCoverage": true,
-    "coverageDirectory": "./coverage"
+    "coverageDirectory": "./coverage",
+    "coveragePathIgnorePatterns": [
+      "/scss$/",
+      "/__test__/"
+    ]
   },
   "keywords": [],
   "author": "Code Fellows, LLC",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
@@ -51,6 +56,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2",
     "sass-loader": "^6.0.6",
     "superagent": "^3.8.2",
     "uglifyjs-webpack-plugin": "^1.2.1",
@@ -60,6 +66,7 @@
     "webpack-dev-server": "^2.11.1"
   },
   "dependencies": {
+    "express": "^4.16.3",
     "jest-cli": "^23.0.0-alpha.0"
   }
 }

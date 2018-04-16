@@ -1,0 +1,45 @@
+.team-table {
+  margin-right: 0;
+  margin-left: auto;
+
+  tr:first-of-type {
+    td {
+      text-align: center;
+    }
+  }
+
+  tr {
+    td:first-of-type {
+      text-align: right;
+    }
+  }
+
+  td {
+    padding: .25em;
+    text-align: center;
+  }
+
+  tr {
+    padding: .25em;
+  }
+
+  .team-stats.winner {
+    color: green;
+    font-weight: 600;
+  }
+
+  tbody tr {
+    color: #222;
+  }
+
+  //   .team-table-spacer {
+  //     border-top: 1px solid #000;
+  //     border-right: 1px solid #000;
+  //     height: 3em;
+  //   }
+
+  //   tbody tr:last-of-type {
+  //     border-bottom: 1px solid #000;
+  //     border-right: 1px solid #000;
+  // }
+}

@@ -1,0 +1,64 @@
+.classification-list-wrap {
+  width: 50%;
+  box-sizing: border-box;
+  line-height: 2.5em;
+  text-indent: .5em;
+  //background-color: #eee;
+  border-radius: .25em;
+  margin-bottom: 1em;
+  position: relative;
+}
+
+.classification-label {
+  font-weight: bold;
+  line-height: 2em;
+}
+
+.classification-value {
+  cursor: default;
+  //pointer-events: none;
+  font-size: 1.25em;
+  border-radius: .2em;
+  background-color: transparent;
+  border: 1px solid #ddd;
+  //background-color: rgba(255,255,255, .3);
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-left-color: transparent;
+}
+
+.classification-value.edit {
+  cursor: pointer;
+  border-color: transparent;
+  pointer-events: all;
+  background-color: #fff;
+}
+
+.classification-list{
+  z-index: 9;
+  position: absolute;
+  width: 100%;
+  cursor: pointer;
+  max-height: 0;
+  overflow: hidden;
+  transition: 350ms;
+}
+
+.classification-list.visible{
+  max-height: 30vh;
+  overflow: auto;
+  transition: 350ms;
+}
+
+.classification-item {
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.classification-item:nth-of-type(odd) {
+  background-color: #eee;
+}
+
+.classification-select-placeholder {
+  color: #ccc;
+}

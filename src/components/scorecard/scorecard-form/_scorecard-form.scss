@@ -1,0 +1,44 @@
+.scorecard-form {
+  margin-top: 1em;
+  padding: 1em;
+  background-color: rgba(240, 240,240, .3);
+  border-radius: .25em;
+
+  fieldset {
+    text-align: right;
+    background-color: rgba(255, 255,255, .2);
+    border-radius: .25em;
+    margin-bottom: 1em;
+    line-height: 3em;
+  }
+
+  label {     
+    font-size: 1.5em;
+    margin-right: 1em;
+  }
+
+  input{
+    border-radius: .25em;
+    cursor: pointer;
+  }
+
+  input[type="number"] {
+    width: 2em;
+    font-size: 2em;
+    text-align: center;
+    line-height: 1.5em;
+  }
+
+  button {
+    cursor: pointer;
+    font-size: 2em;
+    padding: .5em 0;
+    width: 100%;
+    border-radius: .25em;
+    background-color: #f0ff07;
+    outline: none;
+    border: none;
+    color: #000000;
+    box-shadow: 0 0 2em 0.1em rgba(0,0,0,0.5) inset;
+  }
+}

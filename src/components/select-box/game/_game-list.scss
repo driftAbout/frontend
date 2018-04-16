@@ -1,0 +1,65 @@
+
+.game-value {
+  cursor: pointer;
+  font-size: 1.25em;
+  border-radius: .2em;
+  background-color: #fff;
+}
+
+.game-list-wrap{
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 2.5em;
+  text-indent: .5em;
+  background-color: #eee;
+  border-radius:  .25em;
+}
+
+.game-list{
+  z-index: 9;
+  position: absolute;
+  width: 100%;
+  cursor: pointer;
+  max-height: 0;
+  overflow: hidden;
+  transition: 350ms;
+}
+
+.game-list.visible{
+  max-height: 30vh;
+  overflow: auto;
+  transition: 350ms;
+}
+
+.game-item {
+  cursor: pointer;
+  background-color: #fff;
+  padding-bottom: .5em;
+
+  h4 {
+    color: #222;
+    span {
+      text-transform: capitalize;
+      font-weight: bold;
+      margin-right: .5em;
+      color: #333;
+    }
+  }
+
+  p {
+    line-height: 1em;
+    text-indent: 1em;
+    padding-bottom: .5em;
+    color: #555;
+  }
+
+}
+
+.game-item:nth-of-type(odd) {
+  background-color: #eee;
+}
+
+.game-select-placeholder {
+  color: #ccc;
+}

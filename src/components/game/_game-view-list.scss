@@ -1,0 +1,17 @@
+.game-view-list{
+  box-sizing: border-box;
+  padding: .5em;
+}
+
+.game-view {
+  margin-bottom: 1em;
+  padding: 1em;
+  border-radius: .25em;
+  border: 1px solid #eee;
+  background-color: rgba(245, 245, 240, 0.7);
+
+  h5 {
+    font-weight: bold;
+  }
+}
+

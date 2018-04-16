@@ -1,4 +1,4 @@
-require('jest');
+// require('jest');
 
 describe('App', () => {
   it('should return the initial state on first call', () => {

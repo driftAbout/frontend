@@ -1,0 +1,22 @@
+.elimination-round-view-container {
+  position: relative;
+  margin-top: 1em;
+  background-color: rgba(240, 240, 240, 0.2);
+  border-radius: .25em;
+  box-sizing: border-box;
+  padding: .75em;
+  max-height: 1000em;
+  transition: 350ms;
+
+  h2 {
+    color: #fff;
+    margin-bottom: .5em;
+  }
+
+}
+
+.elimination-round-view-container.collapsed {
+  max-height: 2.5em;
+  overflow: hidden;
+  transition: 350ms;
+}

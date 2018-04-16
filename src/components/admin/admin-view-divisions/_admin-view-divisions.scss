@@ -1,0 +1,38 @@
+.add-division {
+  cursor: pointer;
+}
+
+.admin-view-division-item-view {
+  position: relative;
+  margin-top: 1em;
+  background-color: rgba(240, 240, 240, 0.4);
+  box-sizing: border-box;
+  padding: 1em;
+  border-radius: .25em;
+  max-height: 1000em;
+  transition: 350ms;
+
+  .division-form { 
+    input[name="name"] {
+      border-bottom: 1px solid #eee;
+    }
+  }
+}
+
+.admin-view-division-item-view.collapsed {
+  max-height: 5.25em;
+  overflow: hidden;
+  transition: 350ms;
+
+  h3 {
+    margin-bottom: .25em;
+  }
+
+  .division-form { 
+    input[name="name"] {
+      border-color: transparent;
+      margin: .25em 0 .5em;
+      line-height: 1em;
+    }
+  }
+}

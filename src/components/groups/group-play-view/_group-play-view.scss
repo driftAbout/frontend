@@ -1,0 +1,40 @@
+.group-play-view-container {
+  position: relative;
+  margin-top: 1em;
+  background-color: rgba(240, 240, 240, 0.2);
+  border-radius: .25em;
+  box-sizing: border-box;
+  padding: .75em;
+  max-height: 1000em;
+  transition: 350ms;
+
+  h2 {
+    color: #fff;
+  }
+
+}
+
+.group-play-view-container.collapsed {
+  max-height: 2.5em;
+  overflow: hidden;
+  transition: 350ms;
+}
+
+
+.toggle-view {
+  cursor: pointer;
+  position: absolute;
+  top: .75em;
+  right: 1em;
+  border-radius: .25em;
+  border-top: 1em solid #eee;
+  border-left: .75em solid transparent;
+  border-right: .75em solid transparent;
+  transition: 350ms;
+}
+
+.toggle-view.collapsed {
+  border-top: none;
+  border-bottom: 1em solid #eee;
+  transition: 350ms;
+}
