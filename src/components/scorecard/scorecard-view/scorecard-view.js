@@ -32,12 +32,13 @@ class ScoreCardView extends React.Component {
           tournament: tournament,
           divisions: tournament.divisions,
           division: tournament.divisions.filter(division => this.state.division._id === division._id)[0] || '',
+          game: '',
         });
       });
   }
 
   selectDivision(division){
-    this.setState({division: division});
+    this.setState({division: division, game: ''});
   }
 
   selectGame(game){
