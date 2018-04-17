@@ -19,7 +19,7 @@ export default class TeamSelect extends React.Component{
 
   componentWillReceiveProps(nextProps){
     if (this.props.teamName !== nextProps.teamName)
-      this.setState({teamName: nextProps.teamName});
+      this.setState({teamName: nextProps.teamName, team: nextProps.team});
   }
 
   toggleVisible(){

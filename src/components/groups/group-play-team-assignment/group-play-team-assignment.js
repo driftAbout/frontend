@@ -73,15 +73,21 @@ export default class GroupTeamAssignment extends React.Component{
           teamList = this.props.teams[div.classification][div.agegroup] || [];
       }
 
-      let groupSlotTeamList = Object.values(groupSlots).reduce((teams, team) => {
+      let groupSlotTeams = Object.values(groupSlots).reduce((teams, team) => {
         if (team) teams[team.name] = null;
         return teams;
       }, {});
 
-      let modTeamMap = teamList.forEach(team => {
-        if (groupSlotTeamList[team.name] === undefined) groupSlotTeamList[team.name] = team;
+      // let modTeamMap = teamList.forEach(team => {
+      //   if (groupSlotTeams[team.name] === undefined) groupSlotTeams[team.name] = team;
+      // });
+      // let modTeamsList = modTeamMap ? Object.values(modTeamMap) : []; 
+
+      teamList.forEach(team => {
+        if (groupSlotTeams[team.name] === undefined) groupSlotTeams[team.name] = team;
       });
-      let modTeamsList = modTeamMap ? Object.values(modTeamMap) : []; 
+      let groupSlotTeamsList = Object.values(groupSlotTeams).filter(team => team);
+      let modTeamsList = groupSlotTeamsList.length ? groupSlotTeamsList : []; 
 
       let edit =  (!Object.values(groupSlots).length) ? true : false;
       this.setState({groupSlots: {...this.state.groupSlots, ...groupSlots}, groupSlotsRollback: {...this.state.groupSlots, ...groupSlots}, teams: modTeamsList, edit: edit});
