@@ -15,6 +15,7 @@ export default class TournamentForm extends React.Component{
     this.toggleEdit = this.toggleEdit.bind(this);
     this.handleInvokeEdit = this.handleInvokeEdit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -22,8 +23,8 @@ export default class TournamentForm extends React.Component{
     this.setState({
       _id: nextProps.tournament._id,
       name: nextProps.tournament.name,
-      dateStart: nextProps.tournament.dateStart || '',
-      dateEnd: nextProps.tournament.dateEnd || '',
+      dateStart: nextProps.tournament.dateStart ? nextProps.tournament.dateStart.replace(/T.*$/, '') : '',
+      dateEnd: nextProps.tournament.dateEnd ? nextProps.tournament.dateEnd.replace(/T.*$/, '') : '',
       edit: false,
     });
   }
@@ -54,6 +55,13 @@ export default class TournamentForm extends React.Component{
 
   handleChange(e){
     this.setState({[e.target.name]: e.target.value});
+  }
+
+  handleDelete(){
+    this.props.deleteTournament(this.state._id)
+      .then(() => this.props.selectTournament(''))
+      .then(() => this.props.collapseTournament())
+      .then(() => this.setState({name: '', director: '', dateStart: '', dateEnd: ''}));
   }
 
   handleSubmit(e){

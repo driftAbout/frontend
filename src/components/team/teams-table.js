@@ -22,36 +22,32 @@ export default class TeamsTable extends React.Component {
 
   render() {
     return (
-      <table className="team-table">
-        <thead>
-          <tr>
-            <td></td>
-            <td>Goals</td>
-            <td>Points</td>
-            <td>Total</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className={`team-stats${this.isWinner('teamA') ? ' winner' : ''}`}>
-            <td>{this.props.game.teamA.name}</td>
-            <td>{this.props.game.teamAResult}</td>
-            <td>{this.props.game.teamAPoints}</td>
-            <td>{this.props.game.teamARollingTotal}</td>
-          </tr>
-          {/* <tr className="team-table-spacer">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr> */}
-          <tr className={`team-stats${this.isWinner('teamB') ? ' winner' : ''}`}>
-            <td>{this.props.game.teamB.name}</td>
-            <td>{this.props.game.teamBResult}</td>
-            <td>{this.props.game.teamBPoints}</td>
-            <td>{this.props.game.teamBRollingTotal}</td>
-          </tr>
-        </tbody>
-      </table>
+      this.props.game.teamA && this.props.game.teamB ?
+        <table className="team-table">
+          <thead>
+            <tr>
+              <td></td>
+              <td>Goals</td>
+              <td>Points</td>
+              <td>Total</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className={`team-stats${this.isWinner('teamA') ? ' winner' : ''}`}>
+              <td>{this.props.game.teamA.name}</td>
+              <td>{this.props.game.teamAResult}</td>
+              <td>{this.props.game.teamAPoints}</td>
+              <td>{this.props.game.teamARollingTotal}</td>
+            </tr>
+            <tr className={`team-stats${this.isWinner('teamB') ? ' winner' : ''}`}>
+              <td>{this.props.game.teamB.name}</td>
+              <td>{this.props.game.teamBResult}</td>
+              <td>{this.props.game.teamBPoints}</td>
+              <td>{this.props.game.teamBRollingTotal}</td>
+            </tr>
+          </tbody>
+        </table>
+        : null
     );
   }
 }
