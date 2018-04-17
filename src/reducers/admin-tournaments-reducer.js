@@ -11,13 +11,13 @@ export default (state=[], action) => {
 
   //takeAction['DIVISION_DELETE'] = () => [];
 
-  //takeAction['TOURNAMENT_SET'] = tournament => [...state, tournament];
+  //takeAction['TOURNAMENTS_SET'] = tournament => [...state, tournament];
 
   takeAction['ADMIN_TOURNAMENTS_SET'] = adminTournaments => [...state, ...adminTournaments];
 
-  takeAction['TOURNAMENT_DELETE'] = tournamentId => [...state].filter(tournament => tournament._id !== tournamentId);
+  takeAction['ADMIN_TOURNAMENT_DELETE'] = tournamentId => [...state].filter(tournament => tournament._id !== tournamentId);
 
-  takeAction['TOURNAMENT_UPDATE'] = tournamentUpdate => [...state].map(tournament => 
+  takeAction['ADMIN_TOURNAMENT_UPDATE'] = tournamentUpdate => [...state].map(tournament => 
     tournament._id === tournamentUpdate._id ? 
       tournamentUpdate 
       : tournament

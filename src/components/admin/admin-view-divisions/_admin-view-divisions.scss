@@ -15,12 +15,13 @@
   .division-form { 
     input[name="name"] {
       border-bottom: 1px solid #eee;
+      border-style: none;
     }
   }
 }
 
 .admin-view-division-item-view.collapsed {
-  max-height: 5.25em;
+  max-height: 5em;
   overflow: hidden;
   transition: 350ms;
 

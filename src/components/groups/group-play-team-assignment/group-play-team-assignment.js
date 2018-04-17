@@ -66,17 +66,18 @@ export default class GroupTeamAssignment extends React.Component{
         return acc;
       }, {});
 
-      let teamList = '';
+      let teamList = [];
       if (this.props.teams){
         let div = this.props.division;
         if (this.props.teams[div.classification])  
-          teamList = this.props.teams[div.classification][div.agegroup] || '';
+          teamList = this.props.teams[div.classification][div.agegroup] || [];
       }
 
       let groupSlotTeamList = Object.values(groupSlots).reduce((teams, team) => {
         if (team) teams[team.name] = null;
         return teams;
       }, {});
+
       let modTeamMap = teamList.forEach(team => {
         if (groupSlotTeamList[team.name] === undefined) groupSlotTeamList[team.name] = team;
       });
