@@ -66,34 +66,61 @@ export default class GroupTeamAssignment extends React.Component{
         return acc;
       }, {});
 
-      let teamList = [];
-      if (this.props.teams){
-        let div = this.props.division;
-        if (this.props.teams[div.classification])  
-          teamList = this.props.teams[div.classification][div.agegroup] || [];
-      }
+      // let teamList = [];
+      // if (this.props.teams){
+      //   let div = this.props.division;
+      //   if (this.props.teams[div.classification])  
+      //     teamList = this.props.teams[div.classification][div.agegroup] || [];
+      // }
 
-      let groupSlotTeamList = Object.values(groupSlots).reduce((teams, team) => {
-        if (team) teams[team.name] = null;
-        return teams;
-      }, {});
+      // let groupSlotTeams = Object.values(groupSlots).reduce((teams, team) => {
+      //   if (team) teams[team.name] = null;
+      //   return teams;
+      // }, {});
 
-      let modTeamMap = teamList.forEach(team => {
-        if (groupSlotTeamList[team.name] === undefined) groupSlotTeamList[team.name] = team;
-      });
-      let modTeamsList = modTeamMap ? Object.values(modTeamMap) : []; 
+      // teamList.forEach(team => {
+      //   if (groupSlotTeams[team.name] === undefined) groupSlotTeams[team.name] = team;
+      // });
+      // let groupSlotTeamsList = Object.values(groupSlotTeams).filter(team => team);
+      // let modTeamsList = groupSlotTeamsList.length ? groupSlotTeamsList : []; 
 
-      let edit =  (!Object.values(groupSlots).length) ? true : false;
-      this.setState({groupSlots: {...this.state.groupSlots, ...groupSlots}, groupSlotsRollback: {...this.state.groupSlots, ...groupSlots}, teams: modTeamsList, edit: edit});
+      let edit =  (!Object.values(groupSlots).join('')) ? true : false;
+      // this.setState({groupSlots: {...this.state.groupSlots, ...groupSlots}, groupSlotsRollback: {...this.state.groupSlots, ...groupSlots}, teams: modTeamsList, edit: edit});
+
+      this.setState({groupSlots: {...this.state.groupSlots, ...groupSlots}, groupSlotsRollback: {...this.state.groupSlots, ...groupSlots}, edit: edit});
     }
 
   }
 
   componentWillReceiveProps(nextProps){
     // if (!nextProps.groupSlots) return this.setState({edit: true});
-    if (!nextProps.groupSlots) return;
-    let edit =  (!Object.values(nextProps.groupSlots).length) ? true : false;
-    this.setState({groupSlots: nextProps.groupSlots, teams: nextProps.teams, edit: edit});
+    // if (!nextProps.groupSlots) return;
+    // let edit =  (!Object.values(nextProps.groupSlots).length) ? true : false;
+    // this.setState({groupSlots: nextProps.groupSlots, teams: nextProps.teams, edit: edit});
+    if (this.props.division.agegroup === nextProps.division.agegroup &&
+      this.props.division.classification == nextProps.division.classification) return;
+
+    let teamList = [];
+    if (nextProps.teams){
+      let div = nextProps.division;
+      if (nextProps.teams[div.classification])  
+        teamList = nextProps.teams[div.classification][div.agegroup] || [];
+    }
+
+    let groupSlotTeams = Object.values(this.state.groupSlots).reduce((teams, team) => {
+      if (team) teams[team.name] = null;
+      return teams;
+    }, {});
+
+    teamList.forEach(team => {
+      if (groupSlotTeams[team.name] === undefined) groupSlotTeams[team.name] = team;
+    });
+    let groupSlotTeamsList = Object.values(groupSlotTeams).filter(team => team);
+    let modTeamsList = groupSlotTeamsList.length ? groupSlotTeamsList : []; 
+
+    let edit =  (!Object.values(this.state.groupSlots).join('')) ? true : false;
+    this.setState({teams: modTeamsList, edit: edit});
+
   }
 
   toggleEdit(){
