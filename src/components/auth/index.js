@@ -67,10 +67,18 @@ export default class AuthForm extends React.Component {
               onChange={this.handleChange}/>
           </React.Fragment>
           : 
+        //   <input
+        //     type='text'
+        //     name="username"
+        //     placeholder="Username"
+        //     value={this.state.username}
+        //     onChange={this.handleChange}/>
+        // }
+
           <input
-            type='text'
+            type='email'
             name="username"
-            placeholder="Username"
+            placeholder="Email"
             value={this.state.username}
             onChange={this.handleChange}/>
         }
