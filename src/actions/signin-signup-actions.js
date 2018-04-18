@@ -7,7 +7,6 @@ const setToken = token => ({
 });
 
 const userSigninRequest = user => dispatch => {
-  console.log(user.username, user.password);
   return  superagent.get(`${__API_URL__}/signin`)
     .auth(user.username, user.password)
     .then(res => dispatch(setToken(res.body)))
