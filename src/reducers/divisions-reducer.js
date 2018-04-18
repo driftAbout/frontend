@@ -23,14 +23,14 @@ export default (state={}, action) => {
     return tempState;
   };
 
-  takeAction['DIVISION_UPDATE'] = divisionUpdate => {
-    let tempState = {...state};
-    tempState[divisionUpdate.tournament] = tempState[divisionUpdate.tournament].map(division => 
-      division._id === divisionUpdate._id
-        ? divisionUpdate
-        : division);
-    return tempState;
-  };
+  // takeAction['DIVISION_UPDATE'] = divisionUpdate => {
+  //   let tempState = {...state};
+  //   tempState[divisionUpdate.tournament] = tempState[divisionUpdate.tournament].map(division => 
+  //     division._id === divisionUpdate._id
+  //       ? divisionUpdate
+  //       : division);
+  //   return tempState;
+  // };
 
   // takeAction['DIVISION_DELETE'] = divisionDelete => {
   //   let tempState = {...state};
