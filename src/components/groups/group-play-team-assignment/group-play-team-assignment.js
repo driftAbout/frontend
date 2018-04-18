@@ -89,7 +89,7 @@ export default class GroupTeamAssignment extends React.Component{
       let groupSlotTeamsList = Object.values(groupSlotTeams).filter(team => team);
       let modTeamsList = groupSlotTeamsList.length ? groupSlotTeamsList : []; 
 
-      let edit =  (!Object.values(groupSlots).length) ? true : false;
+      let edit =  (!Object.values(groupSlots).join('')) ? true : false;
       this.setState({groupSlots: {...this.state.groupSlots, ...groupSlots}, groupSlotsRollback: {...this.state.groupSlots, ...groupSlots}, teams: modTeamsList, edit: edit});
     }
 
@@ -97,9 +97,30 @@ export default class GroupTeamAssignment extends React.Component{
 
   componentWillReceiveProps(nextProps){
     // if (!nextProps.groupSlots) return this.setState({edit: true});
-    if (!nextProps.groupSlots) return;
-    let edit =  (!Object.values(nextProps.groupSlots).length) ? true : false;
-    this.setState({groupSlots: nextProps.groupSlots, teams: nextProps.teams, edit: edit});
+    // if (!nextProps.groupSlots) return;
+    // let edit =  (!Object.values(nextProps.groupSlots).length) ? true : false;
+    // this.setState({groupSlots: nextProps.groupSlots, teams: nextProps.teams, edit: edit});
+    let teamList = [];
+    if (nextProps.teams){
+      let div = nextProps.division;
+      if (nextProps.teams[div.classification])  
+        teamList = nextProps.teams[div.classification][div.agegroup] || [];
+    }
+
+    let groupSlotTeams = Object.values(this.state.groupSlots).reduce((teams, team) => {
+      if (team) teams[team.name] = null;
+      return teams;
+    }, {});
+
+    teamList.forEach(team => {
+      if (groupSlotTeams[team.name] === undefined) groupSlotTeams[team.name] = team;
+    });
+    let groupSlotTeamsList = Object.values(groupSlotTeams).filter(team => team);
+    let modTeamsList = groupSlotTeamsList.length ? groupSlotTeamsList : []; 
+
+    let edit =  (!Object.values(this.state.groupSlots).join('')) ? true : false;
+    this.setState({teams: modTeamsList, edit: edit});
+
   }
 
   toggleEdit(){

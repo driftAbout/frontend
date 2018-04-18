@@ -56,8 +56,8 @@ class AdminView extends React.Component{
   divisionFormHandlers() {
     return {
       divisionCreateRequest: this.createDivision,
-      divisionUpdateRequest: this.deleteDivision,
-      divisionDeleteRequest: this.updateDivision,
+      divisionUpdateRequest: this.updateDivision,
+      divisionDeleteRequest: this.deleteDivision,
     };
   }
 
@@ -72,7 +72,7 @@ class AdminView extends React.Component{
   }
 
   updateDivision(division){
-    return this.props.divisionDeleteRequest(division)
+    return this.props.divisionUpdateRequest(division)
       .then(() => this.refreshTournamentData());  
   }
 
