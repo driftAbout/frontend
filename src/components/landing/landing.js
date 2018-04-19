@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import AuthForm from '../auth';
+import {AuthForm} from '../auth';
 import {userSignupRequest, userSigninRequest} from '../../actions/signin-signup-actions';
 
 class Landing extends React.Component {
@@ -31,7 +31,7 @@ class Landing extends React.Component {
               history={this.props.history}
               onComplete={onComplete}/>
             {this.props.match.params.auth === 'signin' ?
-              <Link className="signup-link" to="/welcome/signup" >sign up</Link>
+              <Link className="signup-link" to="/welcome/signup">sign up</Link>
               :undefined}
           </div>
           : undefined}
