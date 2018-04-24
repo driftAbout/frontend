@@ -23,8 +23,14 @@ export default class GameSelect extends React.Component{
     this.setState({isVisible: !this.state.isVisible});
   }
 
+
+  hideSelectOptions(){
+    this.setState({isVisible: false});
+  }
+
   handleChange(game){
-    this.toggleVisible();
+    //this.toggleVisible();
+    this.hideSelectOptions();
     this.setState({gameNumber: game.gamenumber});
     this.props.onSelect(game);
   }
@@ -51,7 +57,9 @@ export default class GameSelect extends React.Component{
     return(
       <div className="game-list-wrap">
         <div className='game-value'
-          onClick={this.toggleVisible}>
+          onClick={this.toggleVisible}
+          onBlur={this.hideSelectOptions}
+          tabIndex="0">
           {this.state.gameNumber ? ` Game ${this.state.gameNumber}` : <span className="game-select-placeholder" >select a game</span>}</div>
         <ul className={`game-list${this.state.isVisible ? ' visible' : ''}`}>
           {this.props.division ? 

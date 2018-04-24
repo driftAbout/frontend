@@ -15,6 +15,7 @@ export default class TeamSelect extends React.Component{
     this.handleChange = this.handleChange.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
     this.handleDoubleClick = this.handleDoubleClick.bind(this);
+    this.hideSelectOptions = this.hideSelectOptions.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -26,6 +27,10 @@ export default class TeamSelect extends React.Component{
   toggleVisible(){
     if (!this.props.edit) return;
     this.setState({isVisible: !this.state.isVisible});
+  }
+
+  hideSelectOptions(){
+    this.setState({isVisible: false});
   }
 
   handleDoubleClick(){
@@ -41,7 +46,8 @@ export default class TeamSelect extends React.Component{
 
   handleChange(team){
     let currentTeam = this.state.team;
-    this.toggleVisible();
+    //this.toggleVisible();
+    this.hideSelectOptions();
     this.setState({teamName: team.name, team: team});
     this.props.onSelect(this.props.groupSlot, currentTeam, team);
   }
@@ -51,7 +57,9 @@ export default class TeamSelect extends React.Component{
       <div className="team-list-wrap">
         <div className='team-value'
           onClick={this.toggleVisible}
-          onDoubleClick={this.handleDoubleClick}>
+          onDoubleClick={this.handleDoubleClick}
+          onBlur={this.hideSelectOptions}
+          tabIndex="0">
           {this.state.teamName || <span className="team-select-placeholder" >select a team</span>}</div>
         <ul className={`team-list${this.state.isVisible ? ' visible' : ''}`}>
           {this.props.teams.length ? this.props.teams.map(team => 
