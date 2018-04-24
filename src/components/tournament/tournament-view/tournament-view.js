@@ -22,7 +22,8 @@ class TournamentView extends React.Component {
 
   componentWillMount(){
     if(!this.props.tournaments.length && !localStorage.tournaments)
-      return this.props.tournamentAllGetRequest();
+      return this.props.tournamentAllGetRequest()
+        .catch(error => this.setState({error: error}));
   }
 
   // componentWillReceiveProps(nextProps){
@@ -57,13 +58,19 @@ class TournamentView extends React.Component {
       <section className="tournament-view-container">
         <div className="tournament-view-selections-wrap">
           <h2>Tournaments</h2>
-          <TournamentSelect tournaments={this.props.tournaments}
-            tournamentName={this.state.tournament.name}
-            onSelect={this.selectTournament}/>
+          {this.state.error ? 
+            <span className="tournament-view-error" >Tournament data is currently unavailable</span>
+            :
+            <React.Fragment >
+              <TournamentSelect tournaments={this.props.tournaments}
+                tournamentName={this.state.tournament.name}
+                onSelect={this.selectTournament}/>
 
-          <DivisionSelect divisions={this.state.divisions}
-            divisionName={this.state.division.name}
-            onSelect={this.selectDivision}/>
+              <DivisionSelect divisions={this.state.divisions}
+                divisionName={this.state.division.name}
+                onSelect={this.selectDivision}/>
+            </React.Fragment >
+          }
         </div>
         {this.state.division ?
           ( 

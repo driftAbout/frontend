@@ -26,7 +26,7 @@
   border-top-color: transparent;
   border-right-color: transparent;
   border-left-color: transparent;
-
+  outline: none;
 }
 
 .age-group-value.edit {
@@ -63,4 +63,8 @@
 
 .age-group-select-placeholder {
   color: #ccc;
+}
+
+.age-group-value.edit.error {
+  border-color: #ad0000;
 }

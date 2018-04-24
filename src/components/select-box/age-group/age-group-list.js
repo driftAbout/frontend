@@ -15,6 +15,7 @@ export default class AgeGroupList extends React.Component{
     this.toggleVisible = this.toggleVisible.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.invokeEdit = this.invokeEdit.bind(this);
+    this.hideSelectOptions = this.hideSelectOptions.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -27,13 +28,18 @@ export default class AgeGroupList extends React.Component{
       this.setState({isVisible: !this.state.isVisible});
   }
 
+  hideSelectOptions(){
+    this.setState({isVisible: false});
+  }
+
   invokeEdit(){
     if(!this.props.edit)
       this.props.invokeEdit();
   }
 
   handleChange(textValue){
-    this.toggleVisible();
+    //this.toggleVisible();
+    this.hideSelectOptions();
     this.setState({age: textValue});
     this.props.onSelect({target:{name: 'agegroup', value: textValue}});
   }
@@ -42,9 +48,11 @@ export default class AgeGroupList extends React.Component{
     return(
       <div className="age-group-list-wrap">
         <div className="age-group-label">Age Group:</div>
-        <div className={`age-group-value${this.props.edit ? ' edit' : ''}`}
+        <div className={`age-group-value${this.props.edit ? ' edit' : ''}${this.props.error ? ' error' : ''}`}
           onClick={this.toggleVisible}
-          onDoubleClick={this.invokeEdit}>
+          onDoubleClick={this.invokeEdit}
+          onBlur={this.hideSelectOptions}
+          tabIndex="0">
           {this.state.age || <span className="age-group-select-placeholder" >select age group</span>}</div>
         <ul className={`age-group-list${this.state.isVisible ? ' visible' : ''}`}>
           {ageGroups.map((age, i) => 

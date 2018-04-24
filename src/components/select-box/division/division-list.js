@@ -12,6 +12,7 @@ export default class DivisionSelect extends React.Component{
     };
     this.toggleVisible = this.toggleVisible.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.hideSelectOptions = this.hideSelectOptions.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -23,8 +24,13 @@ export default class DivisionSelect extends React.Component{
     this.setState({isVisible: !this.state.isVisible});
   }
 
+  hideSelectOptions(){
+    this.setState({isVisible: false});
+  }
+
   handleChange(division){
-    this.toggleVisible();
+    //this.toggleVisible();
+    this.hideSelectOptions();
     this.setState({divisionName: division.name});
     this.props.onSelect(division);
   }
@@ -33,7 +39,10 @@ export default class DivisionSelect extends React.Component{
     return(
       <div className="division-list-wrap">
         <div className='division-value'
-          onClick={this.toggleVisible}>
+          onClick={this.toggleVisible}
+          onBlur={this.hideSelectOptions}
+          tabIndex="0">
+
           {this.state.divisionName || <span className="division-select-placeholder" >select a division</span>}</div>
         <ul className={`division-list${this.state.isVisible ? ' visible' : ''}`}>
           {this.props.divisions.length ? this.props.divisions.map(division => 

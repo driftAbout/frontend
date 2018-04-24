@@ -11,6 +11,7 @@ export default class ClassificationSelect extends React.Component{
     this.toggleVisible = this.toggleVisible.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.invokeEdit = this.invokeEdit.bind(this);
+    this.hideSelectOptions = this.hideSelectOptions.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -23,13 +24,18 @@ export default class ClassificationSelect extends React.Component{
       this.setState({isVisible: !this.state.isVisible});
   }
 
+  hideSelectOptions(){
+    this.setState({isVisible: false});
+  }
+
   invokeEdit(){
     if(!this.props.edit)
       this.props.invokeEdit();
   }
 
   handleChange(e){
-    this.toggleVisible();
+    //this.toggleVisible();
+    this.hideSelectOptions();
     this.setState({classification: e.target.textContent});
     this.props.onSelect({target:{name: 'classification', value: e.target.textContent}});
   }
@@ -38,9 +44,11 @@ export default class ClassificationSelect extends React.Component{
     return(
       <div className="classification-list-wrap">
         <div className="classification-label">Division Class:</div>
-        <div className={`classification-value${this.props.edit ? ' edit' : ''}`}
+        <div className={`classification-value${this.props.edit ? ' edit' : ''}${this.props.error ? ' error' : ''}`}
           onClick={this.toggleVisible}
-          onDoubleClick={this.invokeEdit} >
+          onDoubleClick={this.invokeEdit} 
+          onBlur={this.hideSelectOptions}
+          tabIndex="0">
           {this.state.classification || <span className="classification-select-placeholder" >select a class</span>}</div>
         <ul className={`classification-list${this.state.isVisible ? ' visible' : ''}`}>
           <li className="classification-item" 

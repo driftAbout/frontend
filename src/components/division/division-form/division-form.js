@@ -5,10 +5,13 @@ export default class DivisionForm extends  React.Component{
   constructor(props){
     super(props);
     this.state = {
+      _id: this.props.division._id || '',
       agegroup: this.props.division.agegroup || '',
       classification: this.props.division.classification || '',
       name: this.props.division.name || '',
-      _id: this.props.division._id || '',
+      nameError: null,
+      agegroupError: null,
+      classificationError: null,
       edit: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -26,10 +29,13 @@ export default class DivisionForm extends  React.Component{
   componentWillReceiveProps(nextProps){
     if(!nextProps.division) return this.setState({edit: true});
     this.setState({
+      _id: nextProps.division._id,
       agegroup: nextProps.division.agegroup,
       classification: nextProps.division.classification,
       name: nextProps.division.name,
-      _id: nextProps.division._id,
+      nameError: null,
+      agegroupError: null,
+      classificationError: null,
       edit: nextProps.isCollapsed ? false : this.state.edit,
     });
   }
@@ -50,11 +56,18 @@ export default class DivisionForm extends  React.Component{
       name: this.props.division.name || '',
       agegroup: this.props.division.agegroup || '',
       classification: this.props.division.classification || '',
+      nameError: null,
+      agegroupError: null,
+      classificationError: null,
     });
   }
   
   handleChange(e){
-    this.setState({[e.target.name]: e.target.value});
+    let {name, value} = e.target;
+    this.setState({
+      [name]: name !== 'name' ? value.trim() : value,
+      [`${name}Error`]: null,
+    });
   }
 
   handleDelete(e){
@@ -67,9 +80,18 @@ export default class DivisionForm extends  React.Component{
     return this.props.onDelete({...this.state, tournament: this.props.tournament._id});    
   }
 
+  isFormValid(){
+    let nameError = !this.state.name.trim() ? 'Division name required' : null;
+    let classificationError = !this.state.classification ? 'Classification required' : null;
+    let agegroupError = !this.state.agegroup ? 'Age group required' : null;
+    this.setState({nameError, classificationError, agegroupError});
+    return [nameError, classificationError, agegroupError].every(error => !error);
+  }
+
   handleSubmit(e){
     e.preventDefault();
-    if (!this.state.name || !this.state.classification || !this.state.agegroup ) return;
+    //if (!this.state.name || !this.state.classification || !this.state.agegroup ) return;
+    if (!this.isFormValid()) return;
     let division = {...this.state};
     delete division.edit;
     if (division._id === '') delete division._id;
@@ -84,21 +106,30 @@ export default class DivisionForm extends  React.Component{
         <input name="name"
           placeholder="Division Name"  
           type="text"
+          className={this.state.nameError ? 'error' : ''}
           onChange={this.handleChange}
           onDoubleClick={this.handleInvokeEdit}
           value={this.state.name}
           readOnly={!this.state.edit}
         />
 
+        {this.state.nameError ? <span className="validation-error">{this.state.nameError}</span> : undefined }
+
         <ClassificationSelect onSelect={this.handleChange}
           textValue={this.state.classification}
           edit={this.state.edit}
-          invokeEdit={this.handleInvokeEdit}/>
+          invokeEdit={this.handleInvokeEdit}
+          error={this.state.classificationError}/>
+
+        {this.state.classificationError ? <span className="validation-error">{this.state.classificationError}</span> : undefined }
 
         <AgeGroupList onSelect={this.handleChange} 
           textValue={this.state.agegroup} 
           edit={this.state.edit}
-          invokeEdit={this.handleInvokeEdit}/>
+          invokeEdit={this.handleInvokeEdit}
+          error={this.state.agegroupError}/>
+
+        {this.state.agegroupError ? <span className="validation-error">{this.state.agegroupError}</span> : undefined }
 
         <div className="division-form-btn-wrap">
           {this.state.edit ?
