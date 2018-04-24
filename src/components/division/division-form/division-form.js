@@ -40,6 +40,10 @@ export default class DivisionForm extends  React.Component{
     });
   }
 
+  getClassifications(){
+    return (this.props.teams) ? Object.keys(this.props.teams) : [];
+  }
+
   toggleEdit(){
     this.setState({edit: !this.state.edit});
   }
@@ -117,6 +121,7 @@ export default class DivisionForm extends  React.Component{
 
         <ClassificationSelect onSelect={this.handleChange}
           textValue={this.state.classification}
+          classifications={this.getClassifications()}
           edit={this.state.edit}
           invokeEdit={this.handleInvokeEdit}
           error={this.state.classificationError}/>

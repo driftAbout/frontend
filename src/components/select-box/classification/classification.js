@@ -1,5 +1,6 @@
 import './_classification.scss';
 import React from 'react';
+import ClassificationItem from './classification-item';
 
 export default class ClassificationSelect extends React.Component{
   constructor(props){
@@ -51,10 +52,21 @@ export default class ClassificationSelect extends React.Component{
           tabIndex="0">
           {this.state.classification || <span className="classification-select-placeholder" >select a class</span>}</div>
         <ul className={`classification-list${this.state.isVisible ? ' visible' : ''}`}>
-          <li className="classification-item" 
+
+          {this.props.classifications.length ? this.props.classifications.map((classification, i) => 
+            <ClassificationItem
+              key={i} 
+              toggle={this.handleChange}
+              textValue={classification}
+            />
+          )
+            : undefined}
+
+          {/* <li className="classification-item" 
             onClick={this.handleChange}>boys</li>
           <li className="classification-item" 
-            onClick={this.handleChange}>girls</li>
+            onClick={this.handleChange}>girls</li> */}
+
         </ul>
       </div>
     );
