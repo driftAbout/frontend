@@ -34,11 +34,13 @@ export default class ClassificationSelect extends React.Component{
       this.props.invokeEdit();
   }
 
-  handleChange(e){
+  handleChange(textValue){
     //this.toggleVisible();
     this.hideSelectOptions();
-    this.setState({classification: e.target.textContent});
-    this.props.onSelect({target:{name: 'classification', value: e.target.textContent}});
+    this.setState({classification: textValue});
+    this.props.onSelect({target:{name: 'classification', value: textValue}});
+    // this.setState({classification: e.target.textContent});
+    // this.props.onSelect({target:{name: 'classification', value: e.target.textContent}});
   }
 
   render(){

@@ -10,7 +10,6 @@ export default class ClassificationItem extends React.Component{
     this.props.toggle(this.props.textValue);
   }
   
-
   render(){
     return (
       <li className="classification-item"

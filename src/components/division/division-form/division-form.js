@@ -44,6 +44,12 @@ export default class DivisionForm extends  React.Component{
     return (this.props.teams) ? Object.keys(this.props.teams) : [];
   }
 
+  getAgeGroups(){
+    return (this.props.teams && this.props.teams[this.state.classification])
+      ? Object.keys(this.props.teams[this.state.classification])
+      : [];
+  }
+
   toggleEdit(){
     this.setState({edit: !this.state.edit});
   }
@@ -130,6 +136,7 @@ export default class DivisionForm extends  React.Component{
 
         <AgeGroupList onSelect={this.handleChange} 
           textValue={this.state.agegroup} 
+          ageGroups={this.getAgeGroups()}
           edit={this.state.edit}
           invokeEdit={this.handleInvokeEdit}
           error={this.state.agegroupError}/>

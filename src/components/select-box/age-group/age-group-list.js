@@ -2,7 +2,7 @@ import './_age-group.scss';
 import React from 'react';
 import AgeGroupItem from './age-group-item';
 
-const ageGroups = ['U9', 'U10', 'U11', 'U12', 'U13', 'U14', 'U15', 'U16'];
+//const ageGroups = ['U9', 'U10', 'U11', 'U12', 'U13', 'U14', 'U15', 'U16'];
 
 export default class AgeGroupList extends React.Component{
   constructor(props){
@@ -55,10 +55,11 @@ export default class AgeGroupList extends React.Component{
           tabIndex="0">
           {this.state.age || <span className="age-group-select-placeholder" >select age group</span>}</div>
         <ul className={`age-group-list${this.state.isVisible ? ' visible' : ''}`}>
-          {ageGroups.map((age, i) => 
+          {this.props.ageGroups.length ? this.props.ageGroups.map((age, i) => 
             <AgeGroupItem key={`${i}_${age}`} toggle={this.handleChange}
               textValue={age} />
-          )}
+          )
+            : undefined}
         </ul>
       </div>
     );
