@@ -25,6 +25,7 @@
   border-top-color: transparent;
   border-right-color: transparent;
   border-left-color: transparent;
+  outline: none;
 }
 
 .classification-value.edit {
@@ -48,6 +49,7 @@
   max-height: 30vh;
   overflow: auto;
   transition: 350ms;
+  box-shadow: 5px 5px 20px 0px rgba(0,0,0,.3);
 }
 
 .classification-item {
@@ -61,4 +63,9 @@
 
 .classification-select-placeholder {
   color: #ccc;
+}
+
+
+.classification-value.edit.error {
+  border-color: #ad0000;
 }

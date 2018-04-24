@@ -13,6 +13,7 @@ export default class TournamentSelect extends React.Component{
     this.toggleVisible = this.toggleVisible.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
+    this.hideSelectOptions = this.hideSelectOptions.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -24,14 +25,20 @@ export default class TournamentSelect extends React.Component{
     this.setState({isVisible: !this.state.isVisible});
   }
 
+  hideSelectOptions(){
+    this.setState({isVisible: false});
+  }
+
   handleCreate(){
-    this.toggleVisible();
+    //this.toggleVisible();
+    this.hideSelectOptions();
     this.setState({tournamentName: ''});
     this.props.onSelect('');
   }
 
   handleChange(tournament){
-    this.toggleVisible();
+    //this.toggleVisible();
+    this.hideSelectOptions();
     this.setState({tournamentName: tournament.name});
     this.props.onSelect(tournament);
   }
@@ -40,7 +47,10 @@ export default class TournamentSelect extends React.Component{
     return(
       <div className="tournament-list-wrap">
         <div className='tournament-value'
-          onClick={this.toggleVisible}>
+          onClick={this.toggleVisible}
+          onBlur={this.hideSelectOptions}
+          tabIndex="0">
+
           {this.state.tournamentName || <span className="tournament-select-placeholder" >select a tournament</span>}</div>
         <ul className={`tournament-list${this.state.isVisible ? ' visible' : ''}`}>
           {this.props.tournaments.length ? this.props.tournaments.map(tournament => 
