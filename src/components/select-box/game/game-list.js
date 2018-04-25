@@ -12,6 +12,7 @@ export default class GameSelect extends React.Component{
     };
     this.toggleVisible = this.toggleVisible.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.hideSelectOptions = this.hideSelectOptions.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
