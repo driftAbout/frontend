@@ -140,7 +140,10 @@ export default class GroupTeamAssignment extends React.Component{
   }
 
   onTeamSelect(groupSlot, previousTeam, team){
-    let teams = this.state.teams.filter(teamItem => teamItem._id !== team._id);
+    let teams = (this.state.teams.length) 
+      ? this.state.teams.filter(teamItem => teamItem._id !== team._id)
+      : [];
+
     if (previousTeam.name) teams.push(previousTeam);
     let groupSlots = {...this.state.groupSlots};
     groupSlots[groupSlot] = team;
