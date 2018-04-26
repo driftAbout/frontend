@@ -5,7 +5,12 @@ import AdminViewTournament from '../admin-view-tournaments/admin-view-tournament
 import {TournamentSelect} from '../../select-box';
 import {connect} from 'react-redux';
 import {teamsGetByTournamentRequest} from '../../../actions/team-actions';
-import {adminTournamentsGetRequest, adminTournamentCreateRequest, adminTournamentUpdateRequest, adminTournamentDeleteRequest} from '../../../actions/admin-tournaments-actions';
+import {adminTournamentsGetRequest,
+  adminTournamentCreateRequest, 
+  adminTournamentUpdateRequest,
+  adminTournamentDeleteRequest,
+  adminTournamentCreateDemoRequest,
+} from '../../../actions/admin-tournaments-actions';
 import {tournamentGetRequest} from '../../../actions/tournament-actions';
 import {divisionCreateRequest, divisionUpdateRequest, divisionDeleteRequest, divisionPopulateRequest}  from '../../../actions/division-actions';
 
@@ -19,18 +24,13 @@ class AdminView extends React.Component{
       isCollapsed: true,
     };
 
-    // this.divisionFormHandlers = {
-    //   divisionCreateRequest: this.createDivision,
-    //   divisionUpdateRequest: this.deleteDivision,
-    //   divisionDeleteRequest: this.updateDivision,
-    // };
-
     this.selectTournament =  this.selectTournament.bind(this);
     this.createDivision = this.createDivision.bind(this);
     this.deleteDivision = this.deleteDivision.bind(this);
     this.updateDivision = this.updateDivision.bind(this);
     this.divisionFormHandlers = this.divisionFormHandlers.bind(this);
     this.collapseTournamentForm = this.collapseTournamentForm.bind(this);
+    this.createDemoData = this.createDemoData.bind(this);
   }
 
   //componentWillReceiveProps(nextProps){
@@ -52,6 +52,17 @@ class AdminView extends React.Component{
   //     });
   //   });
   //}
+
+  createDemoData(){
+    this.props.adminTournamentCreateDemoRequest()
+      .then(() => this.setState({
+        tournament: '', 
+        teams: '', 
+        divisions: '',
+        isCollapsed: true,
+      })
+      );
+  }
 
   divisionFormHandlers() {
     return {
@@ -119,55 +130,42 @@ class AdminView extends React.Component{
     this.setState({isCollapsed: true});
   }
 
-  // selectTournament(tournament){
-  //   if (tournament._id && !this.props.teams[tournament._id]){
-  //     return this.props.teamsGetByTournament(tournament._id)
-  //       .then(() => {
-  //         this.setState({
-  //           tournament: tournament, 
-  //           teams: this.props.teams[tournament._id], 
-  //           divisions: this.props.divisions[tournament._id], 
-  //           games: this.props.games || [],
-  //         });
-  //       });
-  //   }
-
-  //   this.setState({
-  //     tournament: tournament, 
-  //     teams: this.props.teams[tournament._id], 
-  //     divisions: this.props.divisions[tournament._id], 
-  //     games: this.props.games || [],
-  //   });
-  // }
-
   render(){
     if (!localStorage.token) return <Redirect to='/' />;
     return (
-      <section className="admin-view-container">
-        <h2>Admin</h2>
-        <TournamentSelect tournaments={this.props.tournaments}
-          tournamentName={this.state.tournament.name}
-          onSelect={this.selectTournament}
-          lastOption={true}/>
+      <React.Fragment>
+        <section className="admin-view-container">
+          <h2>Admin</h2>
+          <TournamentSelect tournaments={this.props.tournaments}
+            tournamentName={this.state.tournament.name}
+            onSelect={this.selectTournament}
+            lastOption={true}/>
 
-        <AdminViewTournament tournament={this.state.tournament}
-          formHandlers={this.props.tournamentFormHandlers}
-          selectTournament={this.selectTournament}
-          collapseTournament={this.collapseTournamentForm}
-          isCollapsed={this.state.isCollapsed}/>
+          <AdminViewTournament tournament={this.state.tournament}
+            formHandlers={this.props.tournamentFormHandlers}
+            selectTournament={this.selectTournament}
+            collapseTournament={this.collapseTournamentForm}
+            isCollapsed={this.state.isCollapsed}/>
 
-        {this.state.tournament ?
-          <AdminViewDivisions divisions={this.state.divisions}
-            tournament={this.state.tournament}
-            // submitHandlers={this.props.divisionFormHandlers}
-            submitHandlers={this.divisionFormHandlers()}
-            //refresh={this.refreshTournamentData}
-            teamAssign={this.props.teamAssign}
-            teams={this.state.teams}
-            //games={this.props.games}
-          />
-          : undefined}
-      </section>
+          {this.state.tournament ?
+            <AdminViewDivisions divisions={this.state.divisions}
+              tournament={this.state.tournament}
+              // submitHandlers={this.props.divisionFormHandlers}
+              submitHandlers={this.divisionFormHandlers()}
+              //refresh={this.refreshTournamentData}
+              teamAssign={this.props.teamAssign}
+              teams={this.state.teams}
+              //games={this.props.games}
+            />
+            : undefined}
+        </section>
+        <section className="admin-view-demo-container">
+          <button onClick={this.createDemoData}
+            className="demo-btn">
+            Create Demo Tournament
+          </button>
+        </section>
+      </React.Fragment>
     );
   }
 }
@@ -199,6 +197,7 @@ const mapDispatchToProps = dispatch => ({
   teamsGetByTournament: tournamentId => dispatch(teamsGetByTournamentRequest(tournamentId)),
   tournamentGetRequest: id => dispatch(tournamentGetRequest(id)),
   adminTournamentsGetRequest: () => dispatch(adminTournamentsGetRequest()),
+  adminTournamentCreateDemoRequest: () => dispatch(adminTournamentCreateDemoRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminView);
