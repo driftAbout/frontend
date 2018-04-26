@@ -41,5 +41,18 @@ const adminTournamentUpdateRequest = tournament => dispatch => {
     .then(() =>  dispatch(adminTournamentUpdate(tournament)));
 };
 
+const adminTournamentCreateDemoRequest = () => dispatch => {
+  let token = localStorage.token;
+  return superagent.post(`${__API_URL__}/tournament/create_demo`)
+    .set({'Authorization': `Bearer ${token}`})
+    .then(response => dispatch(adminTournamentsSet([response.body])));
+};
 
-export {adminTournamentsGetRequest, adminTournamentCreateRequest, adminTournamentDeleteRequest, adminTournamentUpdateRequest};
+
+export {
+  adminTournamentsGetRequest,
+  adminTournamentCreateRequest,
+  adminTournamentDeleteRequest,
+  adminTournamentUpdateRequest,
+  adminTournamentCreateDemoRequest,
+};
