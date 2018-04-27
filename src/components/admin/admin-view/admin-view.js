@@ -55,13 +55,16 @@ class AdminView extends React.Component{
 
   createDemoData(){
     this.props.adminTournamentCreateDemoRequest()
-      .then(() => this.setState({
-        tournament: '', 
-        teams: '', 
-        divisions: '',
-        isCollapsed: true,
-      })
-      );
+      .then(action => {
+        this.setState({
+          tournament: '', 
+          teams: '', 
+          divisions: '',
+          isCollapsed: true,
+        });
+        //payload is an array of one tournament
+        return this.selectTournament(action.payload[0]);
+      });
   }
 
   divisionFormHandlers() {
