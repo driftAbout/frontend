@@ -128,6 +128,10 @@ section {
     background-color: transparent;
   }
 
+  button[name="unlock"] {
+    background-color: transparent;
+  }
+
   button[name="cancel"] {
     background-color: #eee;
   }
@@ -229,6 +233,10 @@ section {
   }
 
   button[name="edit"] {
+    background-color: transparent;
+  }
+
+  button[name="unlock"] {
     background-color: transparent;
   }
 

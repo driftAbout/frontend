@@ -37,6 +37,7 @@ export default class DivisionForm extends  React.Component{
       agegroupError: null,
       classificationError: null,
       edit: nextProps.isCollapsed ? false : this.state.edit,
+      locked: nextProps.tournament.locked,
     });
   }
 
@@ -144,19 +145,20 @@ export default class DivisionForm extends  React.Component{
         {this.state.agegroupError ? <span className="validation-error">{this.state.agegroupError}</span> : undefined }
 
         <div className="division-form-btn-wrap">
-          {this.state.edit ?
-            <React.Fragment>
-              <button onClick={this.handleDelete} type="button" name="remove" >Delete</button>
-              <button type='submit' name='save'>Save</button>
-              <button onClick={this.handleCancel} type="button" name="cancel" >Cancel</button>
-            </React.Fragment>
-            : undefined}
-
-          {!this.state.edit ?
-            <button type="edit" name="edit" onClick={this.toggleEdit}>Edit</button>
-            : undefined}
+          {!this.state.locked ?
+            this.state.edit ?
+              <React.Fragment>
+                <button onClick={this.handleDelete} type="button" name="remove" >Delete</button>
+                <button type='submit' name='save'>Save</button>
+                <button onClick={this.handleCancel} type="button" name="cancel" >Cancel</button>
+              </React.Fragment>
+              :<button type="edit" name="edit" onClick={this.toggleEdit}>Edit</button>
+            : <button type="button" name="unlock" onClick={this.toggleUnlockModal}>Unlock</button>}
         </div>
       </form>
     );
   }
 }
+
+
+ 
