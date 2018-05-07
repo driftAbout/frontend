@@ -14,7 +14,6 @@ export default class AdminViewDivisions extends React.Component{
   }
 
   componentWillReceiveProps(nextProps){
-    //this.setState({divisions: nextProps.divisions, teams: nextProps.teams, games: this.props.games});
     this.setState({divisions: nextProps.divisions, teams: nextProps.teams});
   }
 
@@ -31,9 +30,9 @@ export default class AdminViewDivisions extends React.Component{
     return (
       <section className="admin-view-division-container">
         <ul>
-          {this.state.divisions.length ? this.state.divisions.map((division, i) => 
-            
-            <AdminDivisionItem 
+          {this.state.divisions.length ? this.state.divisions.map((division, i) =>
+
+            <AdminDivisionItem
               key={i}
               division={division}
               tournament={this.props.tournament}
@@ -45,7 +44,7 @@ export default class AdminViewDivisions extends React.Component{
           )
             : undefined}
           { !this.state.divisions.length || this.state.divisions[this.state.divisions.length - 1].name  ? 
-            <li className="add-division" 
+            <li className="add-division"
               onClick={this.addDivision}>
               <span>add new division</span>
             </li>

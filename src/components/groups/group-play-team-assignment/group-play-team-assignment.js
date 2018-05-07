@@ -43,7 +43,6 @@ export default class GroupTeamAssignment extends React.Component{
   }
 
   componentDidMount(){
-    //if(!Object.keys(this.props.division).length) return this.setState({edit: true, isCollapsed: false});
     if(Object.keys(this.props.division).length) {
       //create object with groups as properties and arrays of teams as values
       //{groupA: [team, team, team, team]}
@@ -59,37 +58,18 @@ export default class GroupTeamAssignment extends React.Component{
         return acc;
       }, {});
 
-      //create group slots object from groupTeams object 
+      //create group slots object from groupTeams object
       //using group letter and array position
       //{A1: team}
       let groupSlots =  Object.keys(groupTeams).reduce((acc, cur) => {
         let letter = cur[cur.length - 1];
-        groupTeams[cur].forEach((team, i ) => { 
+        groupTeams[cur].forEach((team, i ) => {
           acc[`${letter}${i + 1}`] = team ?  team : '';
         });
         return acc;
       }, {});
 
-      // let teamList = [];
-      // if (this.props.teams){
-      //   let div = this.props.division;
-      //   if (this.props.teams[div.classification])  
-      //     teamList = this.props.teams[div.classification][div.agegroup] || [];
-      // }
-
-      // let groupSlotTeams = Object.values(groupSlots).reduce((teams, team) => {
-      //   if (team) teams[team.name] = null;
-      //   return teams;
-      // }, {});
-
-      // teamList.forEach(team => {
-      //   if (groupSlotTeams[team.name] === undefined) groupSlotTeams[team.name] = team;
-      // });
-      // let groupSlotTeamsList = Object.values(groupSlotTeams).filter(team => team);
-      // let modTeamsList = groupSlotTeamsList.length ? groupSlotTeamsList : []; 
-
       let edit =  (!Object.values(groupSlots).join('')) ? true : false;
-      // this.setState({groupSlots: {...this.state.groupSlots, ...groupSlots}, groupSlotsRollback: {...this.state.groupSlots, ...groupSlots}, teams: modTeamsList, edit: edit});
 
       this.setState({groupSlots: {...this.state.groupSlots, ...groupSlots}, groupSlotsRollback: {...this.state.groupSlots, ...groupSlots}, edit: edit});
     }
@@ -97,17 +77,13 @@ export default class GroupTeamAssignment extends React.Component{
   }
 
   componentWillReceiveProps(nextProps){
-    // if (!nextProps.groupSlots) return this.setState({edit: true});
-    // if (!nextProps.groupSlots) return;
-    // let edit =  (!Object.values(nextProps.groupSlots).length) ? true : false;
-    // this.setState({groupSlots: nextProps.groupSlots, teams: nextProps.teams, edit: edit});
     if (this.props.division.agegroup === nextProps.division.agegroup &&
       this.props.division.classification == nextProps.division.classification) return;
 
     let teamList = [];
     if (nextProps.teams){
       let div = nextProps.division;
-      if (nextProps.teams[div.classification])  
+      if (nextProps.teams[div.classification])
         teamList = nextProps.teams[div.classification][div.agegroup] || [];
     }
 
@@ -120,11 +96,11 @@ export default class GroupTeamAssignment extends React.Component{
       if (groupSlotTeams[team.name] === undefined) groupSlotTeams[team.name] = team;
     });
     let groupSlotTeamsList = Object.values(groupSlotTeams).filter(team => team);
-    let modTeamsList = groupSlotTeamsList.length ? groupSlotTeamsList : []; 
+    let modTeamsList = groupSlotTeamsList.length ? groupSlotTeamsList : [];
 
     let edit =  (!Object.values(this.state.groupSlots).join('')) ? true : false;
     this.setState({
-      teams: modTeamsList, 
+      teams: modTeamsList,
       edit: edit,
       locked: nextProps.division.locked,
     });
@@ -133,7 +109,6 @@ export default class GroupTeamAssignment extends React.Component{
   toggleEdit(){
     this.setState({edit: !this.state.edit});
   }
-
 
   toggleUnlockModal(){
     this.setState({modalVisible: !this.state.modalVisible});
@@ -157,7 +132,7 @@ export default class GroupTeamAssignment extends React.Component{
   }
 
   onTeamSelect(groupSlot, previousTeam, team){
-    let teams = (this.state.teams.length) 
+    let teams = (this.state.teams.length)
       ? this.state.teams.filter(teamItem => teamItem._id !== team._id)
       : [];
 
@@ -179,11 +154,11 @@ export default class GroupTeamAssignment extends React.Component{
       ${this.state.edit ? ' edit' : ''}`}>
         <h4>Group Team Assignment</h4>
         <span className={`toggle-view${this.state.isCollapsed ? ' collapsed' : ''}`} onClick={this.toggleView}></span>
-       
+
         <article className="group-play-container" >
           <h3>Group A</h3>
-          <TeamSelect onSelect={this.onTeamSelect} 
-            teamName={this.state.groupSlots.A1.name} 
+          <TeamSelect onSelect={this.onTeamSelect}
+            teamName={this.state.groupSlots.A1.name}
             team={this.state.groupSlots.A1}
             groupSlot="A1" teams={this.state.teams}
             edit={this.state.edit}
@@ -191,21 +166,21 @@ export default class GroupTeamAssignment extends React.Component{
 
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.A2.name}
-            team={this.state.groupSlots.A2} 
+            team={this.state.groupSlots.A2}
             groupSlot="A2" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
 
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.A3.name}
-            team={this.state.groupSlots.A3} 
+            team={this.state.groupSlots.A3}
             groupSlot="A3" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
 
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.A4.name}
-            team={this.state.groupSlots.A4}   
+            team={this.state.groupSlots.A4}
             groupSlot="A4" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
@@ -215,28 +190,28 @@ export default class GroupTeamAssignment extends React.Component{
           <h3>Group B</h3>
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.B1.name}
-            team={this.state.groupSlots.B1}  
+            team={this.state.groupSlots.B1}
             groupSlot="B1" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
 
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.B2.name}
-            team={this.state.groupSlots.B2}   
+            team={this.state.groupSlots.B2}
             groupSlot="B2" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
 
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.B3.name}
-            team={this.state.groupSlots.B3}   
+            team={this.state.groupSlots.B3}
             groupSlot="B3" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
 
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.B4.name}
-            team={this.state.groupSlots.B4}    
+            team={this.state.groupSlots.B4}
             groupSlot="B4" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
@@ -246,66 +221,66 @@ export default class GroupTeamAssignment extends React.Component{
           <h3>Group C</h3>
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.C1.name}
-            team={this.state.groupSlots.C1}    
+            team={this.state.groupSlots.C1}
             groupSlot="C1" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
 
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.C2.name}
-            team={this.state.groupSlots.C2}    
+            team={this.state.groupSlots.C2}
             groupSlot="C2" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
 
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.C3.name}
-            team={this.state.groupSlots.C3}    
+            team={this.state.groupSlots.C3}
             groupSlot="C3" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
 
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.C4.name}
-            team={this.state.groupSlots.C4}    
+            team={this.state.groupSlots.C4}
             groupSlot="C4" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
-        </article> 
+        </article>
 
         <article className="group-play-container" >
           <h3>Group D</h3>
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.D1.name}
-            team={this.state.groupSlots.D1}    
+            team={this.state.groupSlots.D1}
             groupSlot="D1" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
 
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.D2.name}
-            team={this.state.groupSlots.D2}  
+            team={this.state.groupSlots.D2}
             groupSlot="D2" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
 
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.D3.name}
-            team={this.state.groupSlots.D3}  
+            team={this.state.groupSlots.D3}
             groupSlot="D3" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
 
           <TeamSelect onSelect={this.onTeamSelect}
             teamName={this.state.groupSlots.D4.name}
-            team={this.state.groupSlots.D4}  
+            team={this.state.groupSlots.D4}
             groupSlot="D4" teams={this.state.teams}
             edit={this.state.edit}
             toggleEdit={this.toggleEdit}/>
         </article>
         <div className="group-team-assignment-btn-wrap">
           {!this.state.locked ?
-            this.state.edit ? 
+            this.state.edit ?
               <React.Fragment>
                 <button className="group-team-assignment-btn"
                   onClick={this.handleAssignTeams}>
@@ -315,8 +290,8 @@ export default class GroupTeamAssignment extends React.Component{
               </React.Fragment>
               :<button type="edit" name="edit" onClick={this.toggleEdit}>Edit</button>
             : <button type="button" name="unlock" onClick={this.toggleUnlockModal}>Unlock</button>}
-        </div> 
-        <UnlockModal 
+        </div>
+        <UnlockModal
           cancel={this.toggleUnlockModal}
           unlock={this.unlock}
           isVisible={this.state.modalVisible}/>

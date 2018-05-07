@@ -12,7 +12,7 @@ export default class AgeGroupItem extends React.Component{
 
   render(){
     return (
-      <li className="age-group-item" 
+      <li className="age-group-item"
         onClick={this.handleClick}>
         {this.props.textValue}
       </li>

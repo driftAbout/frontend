@@ -30,29 +30,29 @@ export default class AdminDivisionItem extends React.Component{
     return (
       <li className="admin-view-division-item">
         <div className={`admin-view-division-item-view${this.state.isCollapsed ? ' collapsed' : ''}`} >
-          <span className={`toggle-view${this.state.isCollapsed ? ' collapsed' : ''}`} 
+          <span className={`toggle-view${this.state.isCollapsed ? ' collapsed' : ''}`}
             onClick={this.toggleView}></span>
 
           <h3>Division:</h3>
           <DivisionForm  division={this.props.division}
             tournament={this.props.tournament}
             teams={this.props.teams}
-            onComplete={this.props.division.name 
+            onComplete={this.props.division.name
               ? this.props.submitHandlers.divisionUpdateRequest
               : this.props.submitHandlers.divisionCreateRequest
-            } 
+            }
             onDelete={this.props.submitHandlers.divisionDeleteRequest}
             removeDivision={this.collapseRemoveDivision}
             isCollapsed={this.state.isCollapsed}/>
 
           {this.props.division._id ?
-            <GroupTeamAssignment 
+            <GroupTeamAssignment
               teamAssign={this.props.teamAssign}
               division={this.props.division}
               teams={this.props.teams}/>
             : undefined}
         </div>
-      </li> 
+      </li>
     );
   }
 }

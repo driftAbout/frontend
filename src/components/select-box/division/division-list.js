@@ -29,7 +29,6 @@ export default class DivisionSelect extends React.Component{
   }
 
   handleChange(division){
-    //this.toggleVisible();
     this.hideSelectOptions();
     this.setState({divisionName: division.name});
     this.props.onSelect(division);

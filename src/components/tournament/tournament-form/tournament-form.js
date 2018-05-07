@@ -78,8 +78,8 @@ export default class TournamentForm extends React.Component{
   clearForm(){
     if (this.props.tournament) return;
     this.setState({
-      name: '', 
-      dateStart: '', 
+      name: '',
+      dateStart: '',
       dateEnd: '',
       nameError: null,
       dateStartError: null,
@@ -95,7 +95,7 @@ export default class TournamentForm extends React.Component{
       error: null,
     });
   }
-  
+
   handleDelete(){
     this.props.deleteTournament(this.state._id)
       .then(() => this.props.selectTournament(''))
@@ -143,11 +143,11 @@ export default class TournamentForm extends React.Component{
     return (
       <React.Fragment>
         <form className={`tournament-form${this.state.edit ? ' edit' : ''}`} onSubmit={this.handleSubmit}>
-          
+
           <input type="text" name="name"
             className={this.state.nameError ? 'error' : ''}
-            placeholder="Tournament Name" 
-            value={this.state.name} 
+            placeholder="Tournament Name"
+            value={this.state.name}
             onChange={this.handleChange}
             onDoubleClick={this.handleInvokeEdit}
             readOnly={!this.state.edit}/>
@@ -158,7 +158,7 @@ export default class TournamentForm extends React.Component{
 
           <input type="date" name="dateStart"
             className={this.state.dateStartError ? 'error' : ''}
-            value={this.state.dateStart} 
+            value={this.state.dateStart}
             onChange={this.handleChange}
             onDoubleClick={this.handleInvokeEdit}
             readOnly={!this.state.edit}
@@ -170,14 +170,14 @@ export default class TournamentForm extends React.Component{
 
           <input type="date" name="dateEnd"
             className={this.state.dateEndError ? 'error' : ''}
-            value={this.state.dateEnd} 
+            value={this.state.dateEnd}
             onChange={this.handleChange}
             onDoubleClick={this.handleInvokeEdit}
             readOnly={!this.state.edit}
             min={!this.state._id ? new Date().toISOString().replace(/T.*$/, '') : ''}/>
 
           {this.state.dateEndError ? <span className="validation-error">{this.state.dateEndError}</span> : undefined}
-          
+
           <div className="tournament-form-btn-wrap">
             {!this.state.locked ?
               this.state.edit ?
@@ -193,7 +193,7 @@ export default class TournamentForm extends React.Component{
             }
           </div>
         </form>
-        <UnlockModal 
+        <UnlockModal
           cancel={this.toggleUnlockModal}
           unlock={this.unlock}
           isVisible={this.state.modalVisible}/>

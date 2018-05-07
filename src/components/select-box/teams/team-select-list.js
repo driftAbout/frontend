@@ -21,7 +21,6 @@ export default class TeamSelect extends React.Component{
   componentWillReceiveProps(nextProps){
     if (this.props.teamName !== nextProps.teamName)
       return this.setState({teamName: nextProps.teamName, team: nextProps.team});
-    //this.setState({teams: nextProps.teams});
   }
 
   toggleVisible(){
@@ -46,7 +45,6 @@ export default class TeamSelect extends React.Component{
 
   handleChange(team){
     let currentTeam = this.state.team;
-    //this.toggleVisible();
     this.hideSelectOptions();
     this.setState({teamName: team.name, team: team});
     this.props.onSelect(this.props.groupSlot, currentTeam, team);
@@ -62,7 +60,7 @@ export default class TeamSelect extends React.Component{
           tabIndex="0">
           {this.state.teamName || <span className="team-select-placeholder" >select a team</span>}</div>
         <ul className={`team-list${this.state.isVisible ? ' visible' : ''}`}>
-          {this.props.teams.length ? this.props.teams.map(team => 
+          {this.props.teams.length ? this.props.teams.map(team =>
             <TeamItem key={`${team._id}`} toggle={this.handleChange}
               team={team} />
           ) : undefined}

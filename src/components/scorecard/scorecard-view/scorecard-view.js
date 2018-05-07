@@ -58,7 +58,6 @@ class ScoreCardView extends React.Component {
       <section className="scorecard-view-container">
         <article className="scorecard-view-selections-wrap">
           <h2>Scorecard</h2>
-          {/* <div className="scorecard-view-selections-wrap"> */}
           <TournamentSelect tournaments={this.props.tournaments}
             tournamentName={this.state.tournament.name}
             onSelect={this.selectTournament}/>
@@ -70,7 +69,6 @@ class ScoreCardView extends React.Component {
           <GameSelect division={this.state.division}
             gameNumber={this.state.game.gamenumber}
             onSelect={this.selectGame}/>
-          {/* </div> */}
         </article>
         {this.state.game ? (
           <article className="scorecard-view-form-wrap">
@@ -78,7 +76,7 @@ class ScoreCardView extends React.Component {
             <ScorecardForm game={this.state.game}
               resetGameSelection={this.selectGame}
               onComplete={this.submitGameResults}/>
-          </article>  
+          </article>
         ) : undefined}
       </section>
     );
@@ -86,7 +84,6 @@ class ScoreCardView extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  //tournaments: state.tournaments,
   tournaments: state.adminTournaments,
 });
 

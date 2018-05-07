@@ -12,7 +12,7 @@ export default class TeamItem extends React.Component{
 
   render(){
     return (
-      <li className="team-item" 
+      <li className="team-item"
         onClick={this.handleClick}>
         {this.props.team.name || '- - none - -'}
       </li>

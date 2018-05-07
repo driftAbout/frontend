@@ -30,14 +30,12 @@ export default class TournamentSelect extends React.Component{
   }
 
   handleCreate(){
-    //this.toggleVisible();
     this.hideSelectOptions();
     this.setState({tournamentName: ''});
     this.props.onSelect('');
   }
 
   handleChange(tournament){
-    //this.toggleVisible();
     this.hideSelectOptions();
     this.setState({tournamentName: tournament.name});
     this.props.onSelect(tournament);

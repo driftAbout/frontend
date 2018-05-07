@@ -85,7 +85,7 @@ export default class DivisionForm extends  React.Component{
       locked: this.props.division.locked,
     });
   }
-  
+
   handleChange(e){
     let {name, value} = e.target;
     this.setState({
@@ -97,11 +97,10 @@ export default class DivisionForm extends  React.Component{
   handleDelete(e){
     e.preventDefault();
     if(!this.state._id) {
-      //this.props.removeDivision();
       this.setState({agegroup: '', classification: '', name: '', _id: ''});
       return;
     }
-    return this.props.onDelete({...this.state, tournament: this.props.tournament._id});    
+    return this.props.onDelete({...this.state, tournament: this.props.tournament._id});
   }
 
   isFormValid(){
@@ -114,7 +113,6 @@ export default class DivisionForm extends  React.Component{
 
   handleSubmit(e){
     e.preventDefault();
-    //if (!this.state.name || !this.state.classification || !this.state.agegroup ) return;
     if (!this.isFormValid()) return;
     let division = {...this.state};
     delete division.edit;
@@ -129,7 +127,7 @@ export default class DivisionForm extends  React.Component{
       <React.Fragment>
         <form className={`division-form${this.state.edit ? ' edit' : ''}`} name="division" onSubmit={this.handleSubmit}>
           <input name="name"
-            placeholder="Division Name"  
+            placeholder="Division Name"
             type="text"
             className={this.state.nameError ? 'error' : ''}
             onChange={this.handleChange}
@@ -149,8 +147,8 @@ export default class DivisionForm extends  React.Component{
 
           {this.state.classificationError ? <span className="validation-error">{this.state.classificationError}</span> : undefined }
 
-          <AgeGroupList onSelect={this.handleChange} 
-            textValue={this.state.agegroup} 
+          <AgeGroupList onSelect={this.handleChange}
+            textValue={this.state.agegroup}
             ageGroups={this.getAgeGroups()}
             edit={this.state.edit}
             invokeEdit={this.handleInvokeEdit}
@@ -170,7 +168,7 @@ export default class DivisionForm extends  React.Component{
               : <button type="button" name="unlock" onClick={this.toggleUnlockModal}>Unlock</button>}
           </div>
         </form>
-        <UnlockModal 
+        <UnlockModal
           cancel={this.toggleUnlockModal}
           unlock={this.unlock}
           isVisible={this.state.modalVisible}/>
@@ -178,6 +176,3 @@ export default class DivisionForm extends  React.Component{
     );
   }
 }
-
-
- 
