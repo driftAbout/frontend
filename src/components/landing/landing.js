@@ -19,12 +19,11 @@ class Landing extends React.Component {
     let onComplete = params.auth === 'signin'
       ? this.props.signin
       : this.props.signup;
-     
+
     return (
       <div>
-        {!localStorage.token ? 
+        {!localStorage.token ?
           <div className="landing-container">
-        
             <h3>Please {this.props.match.params.auth === 'signin' ? 'Sign In' : 'Sign Up'}</h3>
             <AuthForm
               auth={params.auth}

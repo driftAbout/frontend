@@ -30,29 +30,10 @@ export default class GameSelect extends React.Component{
   }
 
   handleChange(game){
-    //this.toggleVisible();
     this.hideSelectOptions();
     this.setState({gameNumber: game.gamenumber});
     this.props.onSelect(game);
   }
-
-  //   render(){
-  //     return(
-  //       <div className="game-list-wrap">
-  //         <div className='game-value'
-  //           onClick={this.toggleVisible}>
-  //           {this.state.gameNumber || <span className="game-select-placeholder" >select a game</span>}</div>
-  //         <ul className={`game-list${this.state.isVisible ? ' visible' : ''}`}>
-  //           {this.props.division ? this.props.games.map(game => (game.teamA && game.teamB) ?
-  //             <GameItem key={`${game._id}`} toggle={this.handleChange}
-  //               game={game} />
-  //             : undefined
-  //           ) : undefined}
-  //         </ul>
-  //       </div>
-  //     );
-  //   }
-  // }
 
   render(){
     return(
@@ -63,14 +44,13 @@ export default class GameSelect extends React.Component{
           tabIndex="0">
           {this.state.gameNumber ? ` Game ${this.state.gameNumber}` : <span className="game-select-placeholder" >select a game</span>}</div>
         <ul className={`game-list${this.state.isVisible ? ' visible' : ''}`}>
-          {this.props.division ? 
+          {this.props.division ?
             ['groupA', 'groupB', 'groupC', 'groupD', 'consolidation', 'semiFinal', 'final']
               .reduce((games, group) => {
                 this.props.division[group].forEach(game => {
-                  // if (game.teamA && game.teamB)
                   if (game.teamA && game.teamB && !game.complete)
                     games.push(
-                      <GameItem key={game._id} 
+                      <GameItem key={game._id}
                         toggle={this.handleChange}
                         game={game}
                         group={group} />

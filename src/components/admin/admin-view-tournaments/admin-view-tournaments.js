@@ -1,5 +1,5 @@
 import React from 'react';
-import {TournamentForm} from '../../tournament'; 
+import {TournamentForm} from '../../tournament';
 
 export default class AdminViewTournament extends React.Component{
   constructor(props){
@@ -15,13 +15,12 @@ export default class AdminViewTournament extends React.Component{
 
   render(){
     return (
-      <section className={`admin-tournament-view-container${this.props.isCollapsed ? ' collapsed' : ''}`}> 
-        {/* <h2>{this.state.tournament.name}</h2> */}
+      <section className={`admin-tournament-view-container${this.props.isCollapsed ? ' collapsed' : ''}`}>
         <h3>Tournament</h3>
         <TournamentForm tournament={this.state.tournament}
           selectTournament={this.props.selectTournament}
           collapseTournament={this.props.collapseTournament}
-          onComplete={this.state.tournament.name 
+          onComplete={this.state.tournament.name
             ? this.props.formHandlers.adminTournamentUpdateRequest
             : this.props.formHandlers.adminTournamentCreateRequest
           }

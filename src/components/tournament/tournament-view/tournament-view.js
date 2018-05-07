@@ -26,11 +26,6 @@ class TournamentView extends React.Component {
         .catch(error => this.setState({error: error}));
   }
 
-  // componentWillReceiveProps(nextProps){
-  //   if(!nextProps.tournaments.length)
-  //     this.props.tournamentAllGetRequest();
-  // }
-
   toggle(){
     this.setState({isVisible: !this.state.isVisible});
   }
@@ -58,7 +53,7 @@ class TournamentView extends React.Component {
       <section className="tournament-view-container">
         <div className="tournament-view-selections-wrap">
           <h2>Tournaments</h2>
-          {this.state.error ? 
+          {this.state.error ?
             <span className="tournament-view-error" >Tournament data is currently unavailable</span>
             :
             <React.Fragment >
@@ -73,7 +68,7 @@ class TournamentView extends React.Component {
           }
         </div>
         {this.state.division ?
-          ( 
+          (
             <React.Fragment >
               <GroupPlayView division={this.state.division} />
               <EliminationRoundView heading="Consolidation"
@@ -92,8 +87,6 @@ class TournamentView extends React.Component {
 
 const mapStateToProps = state => ({
   tournaments: state.tournaments,
-  //divisions: state.divisions,
-  //game: state.game,
 });
 
 const mapDispatchToProps = dispatch => ({

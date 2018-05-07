@@ -26,8 +26,3 @@ export default class Navbar extends React.Component {
     );
   }
 }
-
-// let mapDispatchToProps = dispatch => ({
-// tokenDelete: () => dispatch(tokenDelete()))
-//not sure if i need this or if its even working. may need it later
-//33 minutes 39 seconds refactoring

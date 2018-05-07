@@ -1,4 +1,4 @@
-import './_group-play-group.scss'; 
+import './_group-play-group.scss';
 import React from 'react';
 import GameView from '../../game/game-view';
 

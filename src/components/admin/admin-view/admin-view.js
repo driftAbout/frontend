@@ -1,12 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import {TournamentSelect} from '../../select-box';
 import AdminViewDivisions from '../admin-view-divisions/admin-view-divisions';
 import AdminViewTournament from '../admin-view-tournaments/admin-view-tournaments';
-import {TournamentSelect} from '../../select-box';
-import {connect} from 'react-redux';
 import {teamsGetByTournamentRequest} from '../../../actions/team-actions';
 import {adminTournamentsGetRequest,
-  adminTournamentCreateRequest, 
+  adminTournamentCreateRequest,
   adminTournamentUpdateRequest,
   adminTournamentDeleteRequest,
   adminTournamentCreateDemoRequest,
@@ -33,36 +33,15 @@ class AdminView extends React.Component{
     this.createDemoData = this.createDemoData.bind(this);
   }
 
-  //componentWillReceiveProps(nextProps){
-  //if(nextProps.tournaments.length) return;
-  // this.refreshTournamentData();
-  // this.props.tournamentGetRequest(this.state.tournament._id)
-  //   .then(action => {
-  //     let tournament = action.payload;
-  //     this.setState({
-  //       tournament: tournament,
-  //       divisions: tournament.divisions,
-  //     });
-  //   });
-  // this.props.adminTournamentsGetRequest()
-  //   .then(action => {
-  //     let tournament = action.payload.filter(tourn => tourn._id === this.state.tournament._id)[0];
-  //     this.setState({
-  //       divisions: tournament.divisions || [], 
-  //     });
-  //   });
-  //}
-
   createDemoData(){
     this.props.adminTournamentCreateDemoRequest()
       .then(action => {
         this.setState({
-          tournament: '', 
-          teams: '', 
+          tournament: '',
+          teams: '',
           divisions: '',
           isCollapsed: true,
         });
-        //payload is an array of one tournament
         return this.selectTournament(action.payload[0]);
       });
   }
@@ -77,17 +56,17 @@ class AdminView extends React.Component{
 
   createDivision(division){
     return this.props.divisionCreateRequest(division)
-      .then(() => this.refreshTournamentData()); 
+      .then(() => this.refreshTournamentData());
   }
 
   deleteDivision(division){
     return this.props.divisionDeleteRequest(division)
-      .then(() => this.refreshTournamentData());  
+      .then(() => this.refreshTournamentData());
   }
 
   updateDivision(division){
     return this.props.divisionUpdateRequest(division)
-      .then(() => this.refreshTournamentData());  
+      .then(() => this.refreshTournamentData());
   }
 
   refreshTournamentData(){
@@ -112,20 +91,19 @@ class AdminView extends React.Component{
         })
         .then(tournament => {
           return this.setState({
-            tournament: tournament, 
-            teams: this.props.teams[tournament._id], 
-            divisions: tournament.divisions, 
+            tournament: tournament,
+            teams: this.props.teams[tournament._id],
+            divisions: tournament.divisions,
             isCollapsed: false,
           });
         });
     }
 
     this.setState({
-      tournament: tournament, 
-      teams: '', 
+      tournament: tournament,
+      teams: '',
       divisions: '',
       isCollapsed: false,
-      //games: this.props.games || [],
     });
   }
 
@@ -153,14 +131,11 @@ class AdminView extends React.Component{
           {this.state.tournament ?
             <AdminViewDivisions divisions={this.state.divisions}
               tournament={this.state.tournament}
-              // submitHandlers={this.props.divisionFormHandlers}
               submitHandlers={this.divisionFormHandlers()}
-              //refresh={this.refreshTournamentData}
               teamAssign={this.props.teamAssign}
-              teams={this.state.teams}
-              //games={this.props.games}
-            />
+              teams={this.state.teams}/>
             : undefined}
+
         </section>
         <section className="admin-view-demo-container">
           <button onClick={this.createDemoData}
@@ -175,9 +150,7 @@ class AdminView extends React.Component{
 
 const mapStateToProps = state => ({
   tournaments: state.adminTournaments,
-  // divisions: state.divisions,
   teams: state.teams,
-  // games: state.games,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -186,11 +159,6 @@ const mapDispatchToProps = dispatch => ({
     adminTournamentUpdateRequest: tournament => dispatch(adminTournamentUpdateRequest(tournament)),
     adminTournamentDeleteRequest: tournament_id => dispatch(adminTournamentDeleteRequest(tournament_id)),
   },
-  // divisionFormHandlers: {
-  //   divisionCreateRequest: division => dispatch(divisionCreateRequest(division)),
-  //   divisionUpdateRequest: division => dispatch(divisionUpdateRequest(division)),
-  //   divisionDeleteRequest: division => dispatch(divisionDeleteRequest(division)),
-  // },
 
   divisionCreateRequest: division => dispatch(divisionCreateRequest(division)),
   divisionUpdateRequest: division => dispatch(divisionUpdateRequest(division)),

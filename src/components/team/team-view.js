@@ -17,7 +17,7 @@ export default class TeamView extends React.Component {
     return (
       <ul className="team-view-list">
         {this.props.team ?
-          this.state.isVisible ? 
+          this.state.isVisible ?
             <li className="team-view-item">
               <div>
                 <span>{this.props.team.name ? this.props.team.name : ''}</span>

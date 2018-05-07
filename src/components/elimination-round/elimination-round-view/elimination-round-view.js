@@ -21,8 +21,8 @@ export default class EliminationRoundView extends React.Component{
       <section className={`elimination-round-view-container${this.state.isCollapsed ? ' collapsed' : ''}`}>
         <h2>{this.props.heading}</h2>
         <span className={`toggle-view${this.state.isCollapsed ? ' collapsed' : ''}`} onClick={this.toggleView}></span>
-        <GameView games={this.props.games}/> 
+        <GameView games={this.props.games}/>
       </section>
     );
   }
-} 
+}
