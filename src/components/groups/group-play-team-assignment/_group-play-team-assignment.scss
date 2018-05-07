@@ -47,6 +47,11 @@
     background-color: transparent;
   }
 
+  button[name="unlock"] {
+    background-color: transparent;
+    outline: none;
+  } 
+
   button[name="cancel"] {
     background-color: #eee;
   }

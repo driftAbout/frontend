@@ -1,4 +1,5 @@
 import React from 'react';
+import UnlockModal from '../../modal/unlock/unlock';
 
 function convertDateString(dateString){
   if (!dateString) return null;
@@ -17,6 +18,7 @@ export default class TournamentForm extends React.Component{
       dateStartError: null,
       dateEndError: null,
       edit: false,
+      modalVisible: false,
     };
     this.handleChange =  this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,6 +28,8 @@ export default class TournamentForm extends React.Component{
     this.handleCancel = this.handleCancel.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.isFormValid = this.isFormValid.bind(this);
+    this.unlock = this.unlock.bind(this);
+    this.toggleUnlockModal = this.toggleUnlockModal.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -36,11 +40,20 @@ export default class TournamentForm extends React.Component{
       dateStart: nextProps.tournament.dateStart ? nextProps.tournament.dateStart.replace(/T.*$/, '') : '',
       dateEnd: nextProps.tournament.dateEnd ? nextProps.tournament.dateEnd.replace(/T.*$/, '') : '',
       edit: false,
+      locked: nextProps.tournament.locked,
     });
   }
 
   toggleEdit(){
     this.setState({edit: !this.state.edit});
+  }
+
+  toggleUnlockModal(){
+    this.setState({modalVisible: !this.state.modalVisible});
+  }
+
+  unlock(){
+    this.setState({locked: false, edit: true, modalVisible: false});
   }
 
   handleInvokeEdit(){
@@ -57,6 +70,7 @@ export default class TournamentForm extends React.Component{
       nameError: null,
       dateStartError: null,
       dateEndError: null,
+      locked: this.props.tournament.locked,
     });
     if (this.state._id) this.toggleEdit();
   }
@@ -127,54 +141,63 @@ export default class TournamentForm extends React.Component{
 
   render(){
     return (
-      <form className={`tournament-form${this.state.edit ? ' edit' : ''}`} onSubmit={this.handleSubmit}>
-        
-        <input type="text" name="name"
-          className={this.state.nameError ? 'error' : ''}
-          placeholder="Tournament Name" 
-          value={this.state.name} 
-          onChange={this.handleChange}
-          onDoubleClick={this.handleInvokeEdit}
-          readOnly={!this.state.edit}/>
+      <React.Fragment>
+        <form className={`tournament-form${this.state.edit ? ' edit' : ''}`} onSubmit={this.handleSubmit}>
+          
+          <input type="text" name="name"
+            className={this.state.nameError ? 'error' : ''}
+            placeholder="Tournament Name" 
+            value={this.state.name} 
+            onChange={this.handleChange}
+            onDoubleClick={this.handleInvokeEdit}
+            readOnly={!this.state.edit}/>
 
-        {this.state.nameError ? <span className="validation-error">{this.state.nameError}</span> : undefined }
+          {this.state.nameError ? <span className="validation-error">{this.state.nameError}</span> : undefined }
 
-        <label>Start Date:</label>
+          <label>Start Date:</label>
 
-        <input type="date" name="dateStart"
-          className={this.state.dateStartError ? 'error' : ''}
-          value={this.state.dateStart} 
-          onChange={this.handleChange}
-          onDoubleClick={this.handleInvokeEdit}
-          readOnly={!this.state.edit}
-          min={!this.state._id ? new Date().toISOString().replace(/T.*$/, '') : ''}/>
+          <input type="date" name="dateStart"
+            className={this.state.dateStartError ? 'error' : ''}
+            value={this.state.dateStart} 
+            onChange={this.handleChange}
+            onDoubleClick={this.handleInvokeEdit}
+            readOnly={!this.state.edit}
+            min={!this.state._id ? new Date().toISOString().replace(/T.*$/, '') : ''}/>
 
-        {this.state.dateStartError ? <span className="validation-error">{this.state.dateStartError}</span> : undefined }
+          {this.state.dateStartError ? <span className="validation-error">{this.state.dateStartError}</span> : undefined }
 
-        <label>End Date:</label>
+          <label>End Date:</label>
 
-        <input type="date" name="dateEnd"
-          className={this.state.dateEndError ? 'error' : ''}
-          value={this.state.dateEnd} 
-          onChange={this.handleChange}
-          onDoubleClick={this.handleInvokeEdit}
-          readOnly={!this.state.edit}
-          min={!this.state._id ? new Date().toISOString().replace(/T.*$/, '') : ''}/>
+          <input type="date" name="dateEnd"
+            className={this.state.dateEndError ? 'error' : ''}
+            value={this.state.dateEnd} 
+            onChange={this.handleChange}
+            onDoubleClick={this.handleInvokeEdit}
+            readOnly={!this.state.edit}
+            min={!this.state._id ? new Date().toISOString().replace(/T.*$/, '') : ''}/>
 
-        {this.state.dateEndError ? <span className="validation-error">{this.state.dateEndError}</span> : undefined}
-        
-        <div className="tournament-form-btn-wrap">
-          {this.state.edit ?
-            <React.Fragment>
-              {this.state._id ?
-                <button type="button" name="remove" onClick={this.handleDelete}>Delete</button>
-                : undefined}
-              <button type='submit' name='save'>Save</button>
-              <button onClick={this.handleCancel} type="button" name="cancel" >Cancel</button>
-            </React.Fragment>
-            : <button type="edit" name="edit" onClick={this.toggleEdit}>Edit</button>}
-        </div>
-      </form>
+          {this.state.dateEndError ? <span className="validation-error">{this.state.dateEndError}</span> : undefined}
+          
+          <div className="tournament-form-btn-wrap">
+            {!this.state.locked ?
+              this.state.edit ?
+                <React.Fragment>
+                  {this.state._id ?
+                    <button type="button" name="remove" onClick={this.handleDelete}>Delete</button>
+                    : undefined}
+                  <button type='submit' name='save'>Save</button>
+                  <button onClick={this.handleCancel} type="button" name="cancel" >Cancel</button>
+                </React.Fragment>
+                : <button type="button" name="edit" onClick={this.toggleEdit}>Edit</button>
+              : <button type="button" name="unlock" onClick={this.toggleUnlockModal}>Unlock</button>
+            }
+          </div>
+        </form>
+        <UnlockModal 
+          cancel={this.toggleUnlockModal}
+          unlock={this.unlock}
+          isVisible={this.state.modalVisible}/>
+      </React.Fragment>
     );
   }
 }

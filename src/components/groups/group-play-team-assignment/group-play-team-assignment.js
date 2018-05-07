@@ -1,11 +1,13 @@
 import './_group-play-team-assignment.scss';
 import React from 'react';
 import {TeamSelect} from '../../select-box';
+import UnlockModal from '../../modal/unlock/unlock';
 
 export default class GroupTeamAssignment extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+      locked: this.props.division.locked,
       edit: false,
       isCollapsed: true,
       divisions: '',
@@ -36,6 +38,8 @@ export default class GroupTeamAssignment extends React.Component{
     this.toggleView = this.toggleView.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.toggleUnlockModal = this.toggleUnlockModal.bind(this);
+    this.unlock = this.unlock.bind(this);
   }
 
   componentDidMount(){
@@ -119,17 +123,30 @@ export default class GroupTeamAssignment extends React.Component{
     let modTeamsList = groupSlotTeamsList.length ? groupSlotTeamsList : []; 
 
     let edit =  (!Object.values(this.state.groupSlots).join('')) ? true : false;
-    this.setState({teams: modTeamsList, edit: edit});
-
+    this.setState({
+      teams: modTeamsList, 
+      edit: edit,
+      locked: nextProps.division.locked,
+    });
   }
 
   toggleEdit(){
     this.setState({edit: !this.state.edit});
   }
 
+
+  toggleUnlockModal(){
+    this.setState({modalVisible: !this.state.modalVisible});
+  }
+
+  unlock(){
+    this.setState({locked: false, edit: true, modalVisible: false});
+  }
+
   handleCancel(){
     this.setState({
       groupSlots: this.state.groupSlotsRollback || this.state.groupSlots,
+      locked: this.props.division.locked,
     });
 
     this.toggleEdit();
@@ -155,8 +172,6 @@ export default class GroupTeamAssignment extends React.Component{
     this.props.teamAssign(teamIds, this.props.division._id)
       .then(() => this.setState({edit: false}));
   }
-
-  
 
   render(){
     return (
@@ -289,18 +304,22 @@ export default class GroupTeamAssignment extends React.Component{
             toggleEdit={this.toggleEdit}/>
         </article>
         <div className="group-team-assignment-btn-wrap">
-          {this.state.edit ? 
-            <React.Fragment>
-              <button className="group-team-assignment-btn"
-                onClick={this.handleAssignTeams}>
-              Assign Teams
-              </button>
-              <button onClick={this.handleCancel} type="button" name="cancel" >Cancel</button>
-            </React.Fragment>
-            :
-            <button type="edit" name="edit" onClick={this.toggleEdit}>Edit</button>
-          }
-        </div>   
+          {!this.state.locked ?
+            this.state.edit ? 
+              <React.Fragment>
+                <button className="group-team-assignment-btn"
+                  onClick={this.handleAssignTeams}>
+                Assign Teams
+                </button>
+                <button onClick={this.handleCancel} type="button" name="cancel" >Cancel</button>
+              </React.Fragment>
+              :<button type="edit" name="edit" onClick={this.toggleEdit}>Edit</button>
+            : <button type="button" name="unlock" onClick={this.toggleUnlockModal}>Unlock</button>}
+        </div> 
+        <UnlockModal 
+          cancel={this.toggleUnlockModal}
+          unlock={this.unlock}
+          isVisible={this.state.modalVisible}/>
       </section>
     );
   }
