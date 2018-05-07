@@ -82,7 +82,7 @@ export default class DivisionForm extends  React.Component{
       nameError: null,
       agegroupError: null,
       classificationError: null,
-      locked: this.props.division.lock,
+      locked: this.props.division.locked,
     });
   }
   
