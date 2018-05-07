@@ -6,10 +6,10 @@ import DivisionSelect from './division/division-list';
 import GameSelect from './game/game-list';
 
 export {
-  AgeGroupList, 
-  ClassificationSelect, 
-  TournamentSelect, 
-  TeamSelect, 
-  DivisionSelect, 
+  AgeGroupList,
+  ClassificationSelect,
+  TournamentSelect,
+  TeamSelect,
+  DivisionSelect,
   GameSelect,
 };

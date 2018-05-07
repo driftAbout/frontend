@@ -6,7 +6,6 @@ export default class TeamsTable extends React.Component {
     super(props);
     this.state = {
     };
-  
   }
 
   isWinner(team_path){
@@ -16,7 +15,7 @@ export default class TeamsTable extends React.Component {
     if (game.teamAResult === game.teamBResult){
       if (game.gamenumber < 25) return true;
       return game[`${team_path}RollingTotal`] > game[`${contender}RollingTotal`] ? true : false;
-    } 
+    }
     return game[`${team_path}Result`] > game[`${contender}Result`] ? true : false;
   }
 

@@ -14,11 +14,11 @@ export default class GameItem extends React.Component{
 
   render(){
     return (
-      <li className="game-item" 
+      <li className="game-item"
         onClick={this.handleClick}>
         <h4><span>{this.props.group.replace('group', 'group ')}:</span>( Game {this.props.game.gamenumber} )</h4>
         <p>{this.props.game.teamA.name}</p>
-        <p>{this.props.game.teamB.name}</p> 
+        <p>{this.props.game.teamB.name}</p>
       </li>
     );
   }

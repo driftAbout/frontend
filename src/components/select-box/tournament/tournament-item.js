@@ -12,7 +12,7 @@ export default class TournamentItem extends React.Component{
 
   render(){
     return (
-      <li className="tournament-item" 
+      <li className="tournament-item"
         onClick={this.handleClick}>
         {this.props.tournament.name}
       </li>

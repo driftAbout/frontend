@@ -23,7 +23,7 @@ export default class AuthForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.auth !== this.props.auth) 
+    if(nextProps.auth !== this.props.auth)
       this.setState({
         fullname: '',
         email: '',
@@ -63,7 +63,7 @@ export default class AuthForm extends React.Component {
       let emailRegex = /^[^@]+@[^.]+\..+$/;
       emailError = !emailRegex.test(this.state.email) ? 'invalid email' : null;
     }
-    
+
     if (!passwordError) {
       passwordError = this.state.password.length < 8 || this.state.password.length > 16 ?
         'Password must be between 8 and 16 characters'
@@ -103,7 +103,7 @@ export default class AuthForm extends React.Component {
               placeholder="Enter fullname"
               value={this.state.fullname}
               onChange={this.handleChange}/>
-     
+
             {renderIf(this.state.fullnameError, <span className="validation-error">{this.state.fullnameError}</span>)}
 
             <input
@@ -117,7 +117,7 @@ export default class AuthForm extends React.Component {
             {renderIf(this.state.emailError, <span className="validation-error">{this.state.emailError}</span>)}
 
           </React.Fragment>
-          : 
+          :
           <React.Fragment>
             {this.state.error ? <span className="signin-error">Invalid username or password</span> : undefined}
             <input

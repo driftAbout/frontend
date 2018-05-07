@@ -12,7 +12,7 @@ export default class DivisionItem extends React.Component{
 
   render(){
     return (
-      <li className="division-item" 
+      <li className="division-item"
         onClick={this.handleClick}>
         {this.props.division.name}
       </li>

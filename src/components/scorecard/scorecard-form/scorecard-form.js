@@ -39,7 +39,7 @@ export default class ScorecardForm extends React.Component{
           <label htmlFor="teamAResult">
             {this.props.game ? this.props.game.teamA.name : ''}
           </label>
-          <input name="teamAResult" 
+          <input name="teamAResult"
             type="number"
             min="0"
             value={this.state.teamAResult}

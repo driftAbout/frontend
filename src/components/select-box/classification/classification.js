@@ -35,12 +35,9 @@ export default class ClassificationSelect extends React.Component{
   }
 
   handleChange(textValue){
-    //this.toggleVisible();
     this.hideSelectOptions();
     this.setState({classification: textValue});
     this.props.onSelect({target:{name: 'classification', value: textValue}});
-    // this.setState({classification: e.target.textContent});
-    // this.props.onSelect({target:{name: 'classification', value: e.target.textContent}});
   }
 
   render(){
@@ -49,28 +46,21 @@ export default class ClassificationSelect extends React.Component{
         <div className="classification-label">Division Class:</div>
         <div className={`classification-value${this.props.edit ? ' edit' : ''}${this.props.error ? ' error' : ''}`}
           onClick={this.toggleVisible}
-          onDoubleClick={this.invokeEdit} 
+          onDoubleClick={this.invokeEdit}
           onBlur={this.hideSelectOptions}
           tabIndex="0">
           {this.state.classification || <span className="classification-select-placeholder" >select a class</span>}</div>
         <ul className={`classification-list${this.state.isVisible ? ' visible' : ''}`}>
 
-          {this.props.classifications.length ? this.props.classifications.map((classification, i) => 
+          {this.props.classifications.length ? this.props.classifications.map((classification, i) =>
             <ClassificationItem
-              key={i} 
+              key={i}
               toggle={this.handleChange}
-              textValue={classification}
-            />
+              textValue={classification}/>
           )
             : undefined}
-
-          {/* <li className="classification-item" 
-            onClick={this.handleChange}>boys</li>
-          <li className="classification-item" 
-            onClick={this.handleChange}>girls</li> */}
-
         </ul>
       </div>
     );
   }
-} 
+}

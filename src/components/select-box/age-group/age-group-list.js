@@ -2,8 +2,6 @@ import './_age-group.scss';
 import React from 'react';
 import AgeGroupItem from './age-group-item';
 
-//const ageGroups = ['U9', 'U10', 'U11', 'U12', 'U13', 'U14', 'U15', 'U16'];
-
 export default class AgeGroupList extends React.Component{
   constructor(props){
     super(props);
@@ -38,7 +36,6 @@ export default class AgeGroupList extends React.Component{
   }
 
   handleChange(textValue){
-    //this.toggleVisible();
     this.hideSelectOptions();
     this.setState({age: textValue});
     this.props.onSelect({target:{name: 'agegroup', value: textValue}});

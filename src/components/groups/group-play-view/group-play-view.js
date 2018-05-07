@@ -1,4 +1,4 @@
-import './_group-play-view.scss'; 
+import './_group-play-view.scss';
 import React from 'react';
 import GroupPlayGroup from '../group-play-group/group-play-group';
 
@@ -21,13 +21,13 @@ export default class GroupPlayView extends React.Component{
       <section className={`group-play-view-container${this.state.isCollapsed ? ' collapsed' : ''}`}>
         <h2>Group Play</h2>
         <span className={`toggle-view${this.state.isCollapsed ? ' collapsed' : ''}`} onClick={this.toggleView}></span>
-       
-        { ['groupA', 'groupB', 'groupC', 'groupD'].map(group =>  
+
+        { ['groupA', 'groupB', 'groupC', 'groupD'].map(group =>
           <GroupPlayGroup key={group} groupHeading={group.replace('group', 'Group ')}
             games={this.props.division[group]}/>
         )}
-        
+
       </section>
     );
   }
-} 
+}
