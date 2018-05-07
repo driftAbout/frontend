@@ -1,0 +1,50 @@
+.modal-wrap {
+  height: 0;
+  opacity: 0;
+  position: fixed;
+  transition: 350ms;
+  z-index: 9;
+}
+
+.modal-wrap.visible {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 1;
+  background-color: rgba(0,0,0,.5);
+  height: 100vh;
+  transition: 350ms;
+}
+
+.modal-container {
+  width: 90%;
+  margin: 15em auto;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 2em;
+  border-radius: .25em;
+  border: 1em solid #eee;
+
+  .message {
+    line-height: 1.5em;
+    text-align: center;
+  }
+  .button-wrap {
+    margin-top: 1.5em;
+    text-align: right;
+
+    button {
+      background-color: #ddd;
+      padding: .5em 1em;
+      margin-right: .5em;
+      border-radius: .2em;
+      outline: none;
+    }
+
+    button[name="unlock"]{
+      background-color: #777;
+      color: #eee;
+    }
+  }
+}

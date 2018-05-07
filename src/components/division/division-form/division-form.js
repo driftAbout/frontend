@@ -1,5 +1,6 @@
 import React from 'react';
 import {AgeGroupList, ClassificationSelect} from '../../select-box';
+import UnlockModal from '../../modal/unlock/unlock';
 
 export default class DivisionForm extends  React.Component{
   constructor(props){
@@ -13,6 +14,7 @@ export default class DivisionForm extends  React.Component{
       agegroupError: null,
       classificationError: null,
       edit: false,
+      modalVisible: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,6 +22,8 @@ export default class DivisionForm extends  React.Component{
     this.toggleEdit = this.toggleEdit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleInvokeEdit = this.handleInvokeEdit.bind(this);
+    this.toggleUnlockModal = this.toggleUnlockModal.bind(this);
+    this.unlock = this.unlock.bind(this);
   }
 
   componentDidMount(){
@@ -37,6 +41,7 @@ export default class DivisionForm extends  React.Component{
       agegroupError: null,
       classificationError: null,
       edit: nextProps.isCollapsed ? false : this.state.edit,
+      locked: nextProps.division.locked,
     });
   }
 
@@ -54,6 +59,14 @@ export default class DivisionForm extends  React.Component{
     this.setState({edit: !this.state.edit});
   }
 
+  toggleUnlockModal(){
+    this.setState({modalVisible: !this.state.modalVisible});
+  }
+
+  unlock(){
+    this.setState({locked: false, edit: true, modalVisible: false});
+  }
+
   handleInvokeEdit(){
     if(!this.state.edit)
       this.setState({edit: true});
@@ -69,6 +82,7 @@ export default class DivisionForm extends  React.Component{
       nameError: null,
       agegroupError: null,
       classificationError: null,
+      locked: this.props.division.locked,
     });
   }
   
@@ -112,51 +126,58 @@ export default class DivisionForm extends  React.Component{
 
   render(){
     return(
-      <form className={`division-form${this.state.edit ? ' edit' : ''}`} name="division" onSubmit={this.handleSubmit}>
-        <input name="name"
-          placeholder="Division Name"  
-          type="text"
-          className={this.state.nameError ? 'error' : ''}
-          onChange={this.handleChange}
-          onDoubleClick={this.handleInvokeEdit}
-          value={this.state.name}
-          readOnly={!this.state.edit}
-        />
+      <React.Fragment>
+        <form className={`division-form${this.state.edit ? ' edit' : ''}`} name="division" onSubmit={this.handleSubmit}>
+          <input name="name"
+            placeholder="Division Name"  
+            type="text"
+            className={this.state.nameError ? 'error' : ''}
+            onChange={this.handleChange}
+            onDoubleClick={this.handleInvokeEdit}
+            value={this.state.name}
+            readOnly={!this.state.edit}
+          />
 
-        {this.state.nameError ? <span className="validation-error">{this.state.nameError}</span> : undefined }
+          {this.state.nameError ? <span className="validation-error">{this.state.nameError}</span> : undefined }
 
-        <ClassificationSelect onSelect={this.handleChange}
-          textValue={this.state.classification}
-          classifications={this.getClassifications()}
-          edit={this.state.edit}
-          invokeEdit={this.handleInvokeEdit}
-          error={this.state.classificationError}/>
+          <ClassificationSelect onSelect={this.handleChange}
+            textValue={this.state.classification}
+            classifications={this.getClassifications()}
+            edit={this.state.edit}
+            invokeEdit={this.handleInvokeEdit}
+            error={this.state.classificationError}/>
 
-        {this.state.classificationError ? <span className="validation-error">{this.state.classificationError}</span> : undefined }
+          {this.state.classificationError ? <span className="validation-error">{this.state.classificationError}</span> : undefined }
 
-        <AgeGroupList onSelect={this.handleChange} 
-          textValue={this.state.agegroup} 
-          ageGroups={this.getAgeGroups()}
-          edit={this.state.edit}
-          invokeEdit={this.handleInvokeEdit}
-          error={this.state.agegroupError}/>
+          <AgeGroupList onSelect={this.handleChange} 
+            textValue={this.state.agegroup} 
+            ageGroups={this.getAgeGroups()}
+            edit={this.state.edit}
+            invokeEdit={this.handleInvokeEdit}
+            error={this.state.agegroupError}/>
 
-        {this.state.agegroupError ? <span className="validation-error">{this.state.agegroupError}</span> : undefined }
+          {this.state.agegroupError ? <span className="validation-error">{this.state.agegroupError}</span> : undefined }
 
-        <div className="division-form-btn-wrap">
-          {this.state.edit ?
-            <React.Fragment>
-              <button onClick={this.handleDelete} type="button" name="remove" >Delete</button>
-              <button type='submit' name='save'>Save</button>
-              <button onClick={this.handleCancel} type="button" name="cancel" >Cancel</button>
-            </React.Fragment>
-            : undefined}
-
-          {!this.state.edit ?
-            <button type="edit" name="edit" onClick={this.toggleEdit}>Edit</button>
-            : undefined}
-        </div>
-      </form>
+          <div className="division-form-btn-wrap">
+            {!this.state.locked ?
+              this.state.edit ?
+                <React.Fragment>
+                  <button onClick={this.handleDelete} type="button" name="remove" >Delete</button>
+                  <button type='submit' name='save'>Save</button>
+                  <button onClick={this.handleCancel} type="button" name="cancel" >Cancel</button>
+                </React.Fragment>
+                :<button type="edit" name="edit" onClick={this.toggleEdit}>Edit</button>
+              : <button type="button" name="unlock" onClick={this.toggleUnlockModal}>Unlock</button>}
+          </div>
+        </form>
+        <UnlockModal 
+          cancel={this.toggleUnlockModal}
+          unlock={this.unlock}
+          isVisible={this.state.modalVisible}/>
+      </React.Fragment>
     );
   }
 }
+
+
+ 
