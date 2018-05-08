@@ -53,4 +53,4 @@ const divisionDeleteRequest = division => dispatch => {
 };
 
 
-export {divisionCreateRequest, divisionGetRequest, divisionAllGetRequest, divisionUpdateRequest, divisionDeleteRequest, divisionPopulateRequest}; 
+export {divisionCreateRequest, divisionGetRequest, divisionAllGetRequest, divisionUpdateRequest, divisionDeleteRequest, divisionPopulateRequest};
