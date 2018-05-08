@@ -3,6 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {TournamentSelect, DivisionSelect} from '../../select-box';
 import {GroupPlayView} from '../../groups';
+import {setStateFromStorage} from '../../../actions/tournament-actions';
 import EliminationRoundView from '../../elimination-round/elimination-round-view/elimination-round-view';
 import {tournamentAllGetRequest, tournamentGetRequest} from '../../../actions/tournament-actions';
 
@@ -21,9 +22,11 @@ class TournamentView extends React.Component {
   }
 
   componentWillMount(){
-    if(!this.props.tournaments.length && !localStorage.tournaments)
+    if(!this.props.tournaments.length && localStorage.tournaments) return this.props.setStateFromStorage();
+    if(!this.props.tournaments.length && !localStorage.tournaments){
       return this.props.tournamentAllGetRequest()
         .catch(error => this.setState({error: error}));
+    }
   }
 
   toggle(){
@@ -92,6 +95,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   tournamentAllGetRequest: () => dispatch(tournamentAllGetRequest()),
   tournamentGetRequest: id => dispatch(tournamentGetRequest(id)),
+  setStateFromStorage: () => dispatch(setStateFromStorage()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TournamentView);
